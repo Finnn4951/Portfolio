@@ -1458,419 +1458,442 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    /* =====================================================
-       14. CONTACT FORM
-    ===================================================== */
+/* =====================================================
+   14.CONTACT FORM — LIVE EMAIL
+===================================================== */
 
-    const contactForm =
-        document.getElementById(
-            "contactForm"
-        );
+const contactForm =
+    document.getElementById("contactForm");
 
+const contactSubmit =
+    document.getElementById("contactSubmit");
 
-    const contactSubmit =
-        document.getElementById(
-            "contactSubmit"
-        );
+const formStatus =
+    document.getElementById("formStatus");
 
+const nameInput =
+    document.getElementById("name");
 
-    const formStatus =
-        document.getElementById(
-            "formStatus"
-        );
+const emailInput =
+    document.getElementById("email");
 
+const subjectInput =
+    document.getElementById("subject");
 
-    const nameInput =
-        document.getElementById(
-            "name"
-        );
+const messageInput =
+    document.getElementById("message");
 
 
-    const emailInput =
-        document.getElementById(
-            "email"
-        );
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function validateInput(input) {
+
+    if (!input) return false;
+
+    const value =
+        input.value.trim();
+
+    if (!value) {
+
+        input.classList.remove("valid");
+
+        input.classList.add("invalid");
+
+        return false;
+
+    }
+
+    input.classList.remove("invalid");
+
+    input.classList.add("valid");
+
+    return true;
+
+}
 
 
-    const subjectInput =
-        document.getElementById(
-            "subject"
-        );
+/* =====================================================
+   EMAIL VALIDATION
+===================================================== */
+
+function validateEmail(input) {
+
+    if (!input) return false;
+
+    const email =
+        input.value.trim();
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-    const messageInput =
-        document.getElementById(
-            "message"
-        );
+    if (!emailPattern.test(email)) {
+
+        input.classList.remove("valid");
+
+        input.classList.add("invalid");
+
+        return false;
+
+    }
 
 
+    input.classList.remove("invalid");
 
-    const setFormStatus =
-        (
-            message,
-            type = ""
-        ) => {
+    input.classList.add("valid");
 
-            if (!formStatus)
-                return;
+    return true;
+
+}
 
 
-            formStatus.textContent =
-                message;
+/* =====================================================
+   LIVE VALIDATION
+===================================================== */
 
+[
+    nameInput,
+    subjectInput,
+    messageInput
+].forEach(input => {
 
-            formStatus.className =
-                `form-status ${type}`.trim();
+    if (!input) return;
 
-        };
-
-
-
-    const validateInput =
-        input => {
-
-            if (!input)
-                return false;
-
-
-            const valid =
-                input.value
-                    .trim()
-                    .length > 0;
-
-
-            input.classList.toggle(
-                "valid",
-                valid
-            );
-
-
-            input.classList.toggle(
-                "invalid",
-                !valid
-            );
-
-
-            return valid;
-
-        };
-
-
-
-    const validateEmail =
-        input => {
-
-            if (!input)
-                return false;
-
-
-            const value =
-                input.value.trim();
-
-
-            const pattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            const valid =
-                pattern.test(value);
-
-
-            input.classList.toggle(
-                "valid",
-                valid
-            );
-
-
-            input.classList.toggle(
-                "invalid",
-                !valid
-            );
-
-
-            return valid;
-
-        };
-
-
-
-    [
-        nameInput,
-        subjectInput,
-        messageInput
-    ].forEach(input => {
-
-        input?.addEventListener(
-            "input",
-            () =>
-                validateInput(
-                    input
-                )
-        );
-
-    });
-
-
-
-    emailInput?.addEventListener(
+    input.addEventListener(
         "input",
-        () =>
-            validateEmail(
-                emailInput
-            )
+        () => {
+
+            validateInput(input);
+
+        }
     );
 
+});
 
 
-    if (contactForm) {
+if (emailInput) {
 
-        contactForm.addEventListener(
-            "submit",
-            async event => {
+    emailInput.addEventListener(
+        "input",
+        () => {
 
-                event.preventDefault();
+            validateEmail(emailInput);
+
+        }
+    );
+
+}
 
 
+/* =====================================================
+   FORM STATUS
+===================================================== */
 
-                /* =========================================
-                   VALIDATION
-                ========================================== */
+function showFormStatus(
+    message,
+    type
+) {
 
-                const valid =
-                    validateInput(
-                        nameInput
-                    ) &&
-                    validateEmail(
-                        emailInput
-                    ) &&
-                    validateInput(
-                        subjectInput
-                    ) &&
-                    validateInput(
-                        messageInput
+    if (!formStatus) return;
+
+    formStatus.textContent =
+        message;
+
+    formStatus.className =
+        `form-status show ${type}`;
+
+}
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+if (contactForm) {
+
+    contactForm.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+
+            /* =========================================
+               VALIDATE
+            ========================================= */
+
+            const validName =
+                validateInput(nameInput);
+
+            const validEmail =
+                validateEmail(emailInput);
+
+            const validSubject =
+                validateInput(subjectInput);
+
+            const validMessage =
+                validateInput(messageInput);
+
+
+            if (
+                !validName ||
+                !validEmail ||
+                !validSubject ||
+                !validMessage
+            ) {
+
+                showFormStatus(
+                    "Please complete all fields correctly.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* =========================================
+               LOADING STATE
+            ========================================= */
+
+            if (contactSubmit) {
+
+                contactSubmit.disabled =
+                    true;
+
+                contactSubmit.classList.add(
+                    "is-loading"
+                );
+
+                const submitText =
+                    contactSubmit.querySelector(
+                        ".submit-text"
+                    );
+
+                const submitArrow =
+                    contactSubmit.querySelector(
+                        ".submit-arrow"
                     );
 
 
-                if (!valid) {
+                if (submitText) {
 
-                    setFormStatus(
-                        "Please complete all fields correctly.",
-                        "error"
-                    );
-
-                    return;
+                    submitText.textContent =
+                        "Sending...";
 
                 }
 
 
+                if (submitArrow) {
 
-                /* =========================================
-                   GET DATA
-                ========================================== */
+                    submitArrow.textContent =
+                        "•••";
 
-                const data = {
+                }
 
-                    name:
-                        nameInput.value.trim(),
-
-                    email:
-                        emailInput.value.trim(),
-
-                    subject:
-                        subjectInput.value.trim(),
-
-                    message:
-                        messageInput.value.trim()
-
-                };
+            }
 
 
-
-                /* =========================================
-                   DISABLE BUTTON
-                ========================================== */
-
-                if (contactSubmit) {
-
-                    contactSubmit.disabled =
-                        true;
+            showFormStatus(
+                "Sending your message...",
+                "loading"
+            );
 
 
-                    contactSubmit.classList.add(
-                        "is-loading"
+            /* =========================================
+               GET FORM DATA
+            ========================================= */
+
+            const formData =
+                new FormData(contactForm);
+
+
+            const data = {
+
+                name:
+                    String(
+                        formData.get("name") || ""
+                    ).trim(),
+
+                email:
+                    String(
+                        formData.get("email") || ""
+                    ).trim(),
+
+                subject:
+                    String(
+                        formData.get("subject") || ""
+                    ).trim(),
+
+                message:
+                    String(
+                        formData.get("message") || ""
+                    ).trim()
+
+            };
+
+
+            try {
+
+                /* =====================================
+                   SEND TO VERCEL API
+                ===================================== */
+
+                const response =
+                    await fetch(
+                        "/api/contact",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(data)
+                        }
                     );
 
 
-                    const text =
-                        contactSubmit.querySelector(
-                            ".submit-text"
-                        );
+                /* =====================================
+                   READ RESPONSE
+                ===================================== */
 
+                let result = {};
 
-                    if (text) {
+                try {
 
-                        text.textContent =
-                            "Sending";
+                    result =
+                        await response.json();
 
-                    }
+                } catch {
+
+                    result = {};
 
                 }
 
 
+                /* =====================================
+                   SERVER ERROR
+                ===================================== */
 
-                setFormStatus(
-                    "Sending your message...",
+                if (!response.ok) {
+
+                    throw new Error(
+                        result.message ||
+                        "Unable to send your message."
+                    );
+
+                }
+
+
+                /* =====================================
+                   SUCCESS
+                ===================================== */
+
+                showFormStatus(
+                    "✓ Message sent successfully. Thank you!",
                     "success"
                 );
 
 
+                contactForm.reset();
 
-                /* =========================================
-                   SEND TO API
-                ========================================== */
 
-                try {
+                /* Remove validation classes */
 
-                    const response =
-                        await fetch(
-                            "/api/contact",
-                            {
+                [
+                    nameInput,
+                    emailInput,
+                    subjectInput,
+                    messageInput
+                ].forEach(input => {
 
-                                method:
-                                    "POST",
+                    if (!input) return;
 
-                                headers: {
+                    input.classList.remove(
+                        "valid",
+                        "invalid"
+                    );
 
-                                    "Content-Type":
-                                        "application/json"
+                });
 
-                                },
 
-                                body:
-                                    JSON.stringify(
-                                        data
-                                    )
+            } catch (error) {
 
-                            }
+                console.error(
+                    "Contact form error:",
+                    error
+                );
+
+
+                /* =====================================
+                   ERROR
+                ===================================== */
+
+                showFormStatus(
+                    "✕ " +
+                    (
+                        error.message ||
+                        "Something went wrong. Please try again."
+                    ),
+                    "error"
+                );
+
+
+            } finally {
+
+                /* =====================================
+                   RESTORE BUTTON
+                ===================================== */
+
+                if (contactSubmit) {
+
+                    contactSubmit.disabled =
+                        false;
+
+                    contactSubmit.classList.remove(
+                        "is-loading"
+                    );
+
+
+                    const submitText =
+                        contactSubmit.querySelector(
+                            ".submit-text"
+                        );
+
+                    const submitArrow =
+                        contactSubmit.querySelector(
+                            ".submit-arrow"
                         );
 
 
+                    if (submitText) {
 
-                    let result = {};
-
-
-                    try {
-
-                        result =
-                            await response.json();
-
-                    } catch {
-
-                        result = {};
+                        submitText.textContent =
+                            "Send Message";
 
                     }
 
 
+                    if (submitArrow) {
 
-                    /* =====================================
-                       ERROR
-                    ===================================== */
-
-                    if (!response.ok) {
-
-                        throw new Error(
-                            result.message ||
-                            "Failed to send message."
-                        );
-
-                    }
-
-
-
-                    /* =====================================
-                       SUCCESS
-                    ===================================== */
-
-                    setFormStatus(
-                        "✓ Message sent successfully.",
-                        "success"
-                    );
-
-
-                    contactForm.reset();
-
-
-
-                    [
-                        nameInput,
-                        emailInput,
-                        subjectInput,
-                        messageInput
-                    ].forEach(input => {
-
-                        input?.classList.remove(
-                            "valid",
-                            "invalid"
-                        );
-
-                    });
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Contact form error:",
-                        error
-                    );
-
-
-                    setFormStatus(
-                        `✕ ${
-                            error.message ||
-                            "Something went wrong."
-                        }`,
-                        "error"
-                    );
-
-                } finally {
-
-                    /* =====================================
-                       RESTORE BUTTON
-                    ===================================== */
-
-                    if (contactSubmit) {
-
-                        contactSubmit.disabled =
-                            false;
-
-
-                        contactSubmit.classList.remove(
-                            "is-loading"
-                        );
-
-
-                        const text =
-                            contactSubmit.querySelector(
-                                ".submit-text"
-                            );
-
-
-                        if (text) {
-
-                            text.textContent =
-                                "Send Message";
-
-                        }
+                        submitArrow.textContent =
+                            "↗";
 
                     }
 
                 }
 
             }
-        );
 
-    }
+        }
+    );
 
+}
 
 
     /* =====================================================
