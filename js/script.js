@@ -1458,444 +1458,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* =====================================================
-   14.CONTACT FORM — LIVE EMAIL
-===================================================== */
-
-const contactForm =
-    document.getElementById("contactForm");
-
-const contactSubmit =
-    document.getElementById("contactSubmit");
-
-const formStatus =
-    document.getElementById("formStatus");
-
-const nameInput =
-    document.getElementById("name");
-
-const emailInput =
-    document.getElementById("email");
-
-const subjectInput =
-    document.getElementById("subject");
-
-const messageInput =
-    document.getElementById("message");
-
-
-/* =====================================================
-   VALIDATION
-===================================================== */
-
-function validateInput(input) {
-
-    if (!input) return false;
-
-    const value =
-        input.value.trim();
-
-    if (!value) {
-
-        input.classList.remove("valid");
-
-        input.classList.add("invalid");
-
-        return false;
-
-    }
-
-    input.classList.remove("invalid");
-
-    input.classList.add("valid");
-
-    return true;
-
-}
-
-
-/* =====================================================
-   EMAIL VALIDATION
-===================================================== */
-
-function validateEmail(input) {
-
-    if (!input) return false;
-
-    const email =
-        input.value.trim();
-
-    const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-    if (!emailPattern.test(email)) {
-
-        input.classList.remove("valid");
-
-        input.classList.add("invalid");
-
-        return false;
-
-    }
-
-
-    input.classList.remove("invalid");
-
-    input.classList.add("valid");
-
-    return true;
-
-}
-
-
-/* =====================================================
-   LIVE VALIDATION
-===================================================== */
-
-[
-    nameInput,
-    subjectInput,
-    messageInput
-].forEach(input => {
-
-    if (!input) return;
-
-    input.addEventListener(
-        "input",
-        () => {
-
-            validateInput(input);
-
-        }
-    );
-
-});
-
-
-if (emailInput) {
-
-    emailInput.addEventListener(
-        "input",
-        () => {
-
-            validateEmail(emailInput);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   FORM STATUS
-===================================================== */
-
-function showFormStatus(
-    message,
-    type
-) {
-
-    if (!formStatus) return;
-
-    formStatus.textContent =
-        message;
-
-    formStatus.className =
-        `form-status show ${type}`;
-
-}
-
-
-/* =====================================================
-   SUBMIT
-===================================================== */
-
-if (contactForm) {
-
-    contactForm.addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
-
-
-            /* =========================================
-               VALIDATE
-            ========================================= */
-
-            const validName =
-                validateInput(nameInput);
-
-            const validEmail =
-                validateEmail(emailInput);
-
-            const validSubject =
-                validateInput(subjectInput);
-
-            const validMessage =
-                validateInput(messageInput);
-
-
-            if (
-                !validName ||
-                !validEmail ||
-                !validSubject ||
-                !validMessage
-            ) {
-
-                showFormStatus(
-                    "Please complete all fields correctly.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               LOADING STATE
-            ========================================= */
-
-            if (contactSubmit) {
-
-                contactSubmit.disabled =
-                    true;
-
-                contactSubmit.classList.add(
-                    "is-loading"
-                );
-
-                const submitText =
-                    contactSubmit.querySelector(
-                        ".submit-text"
-                    );
-
-                const submitArrow =
-                    contactSubmit.querySelector(
-                        ".submit-arrow"
-                    );
-
-
-                if (submitText) {
-
-                    submitText.textContent =
-                        "Sending...";
-
-                }
-
-
-                if (submitArrow) {
-
-                    submitArrow.textContent =
-                        "•••";
-
-                }
-
-            }
-
-
-            showFormStatus(
-                "Sending your message...",
-                "loading"
-            );
-
-
-            /* =========================================
-               GET FORM DATA
-            ========================================= */
-
-            const formData =
-                new FormData(contactForm);
-
-
-            const data = {
-
-                name:
-                    String(
-                        formData.get("name") || ""
-                    ).trim(),
-
-                email:
-                    String(
-                        formData.get("email") || ""
-                    ).trim(),
-
-                subject:
-                    String(
-                        formData.get("subject") || ""
-                    ).trim(),
-
-                message:
-                    String(
-                        formData.get("message") || ""
-                    ).trim()
-
-            };
-
-
-            try {
-
-                /* =====================================
-                   SEND TO VERCEL API
-                ===================================== */
-
-                const response =
-                    await fetch(
-                        "/api/contact",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(data)
-                        }
-                    );
-
-
-                /* =====================================
-                   READ RESPONSE
-                ===================================== */
-
-                let result = {};
-
-                try {
-
-                    result =
-                        await response.json();
-
-                } catch {
-
-                    result = {};
-
-                }
-
-
-                /* =====================================
-                   SERVER ERROR
-                ===================================== */
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        result.message ||
-                        "Unable to send your message."
-                    );
-
-                }
-
-
-                /* =====================================
-                   SUCCESS
-                ===================================== */
-
-                showFormStatus(
-                    "✓ Message sent successfully. Thank you!",
-                    "success"
-                );
-
-
-                contactForm.reset();
-
-
-                /* Remove validation classes */
-
-                [
-                    nameInput,
-                    emailInput,
-                    subjectInput,
-                    messageInput
-                ].forEach(input => {
-
-                    if (!input) return;
-
-                    input.classList.remove(
-                        "valid",
-                        "invalid"
-                    );
-
-                });
-
-
-            } catch (error) {
-
-                console.error(
-                    "Contact form error:",
-                    error
-                );
-
-
-                /* =====================================
-                   ERROR
-                ===================================== */
-
-                showFormStatus(
-                    "✕ " +
-                    (
-                        error.message ||
-                        "Something went wrong. Please try again."
-                    ),
-                    "error"
-                );
-
-
-            } finally {
-
-                /* =====================================
-                   RESTORE BUTTON
-                ===================================== */
-
-                if (contactSubmit) {
-
-                    contactSubmit.disabled =
-                        false;
-
-                    contactSubmit.classList.remove(
-                        "is-loading"
-                    );
-
-
-                    const submitText =
-                        contactSubmit.querySelector(
-                            ".submit-text"
-                        );
-
-                    const submitArrow =
-                        contactSubmit.querySelector(
-                            ".submit-arrow"
-                        );
-
-
-                    if (submitText) {
-
-                        submitText.textContent =
-                            "Send Message";
-
-                    }
-
-
-                    if (submitArrow) {
-
-                        submitArrow.textContent =
-                            "↗";
-
-                    }
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
     /* =====================================================
        15. BUTTON HOVER EFFECT
     ===================================================== */
@@ -2071,3 +1633,193 @@ if (contactForm) {
     );
 
 });
+/* =====================================================
+   CONTACT FORM — VERCEL + RESEND
+===================================================== */
+
+const contactForm = document.getElementById("contactForm");
+const contactSubmit = document.getElementById("contactSubmit");
+const formStatus = document.getElementById("formStatus");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const subjectInput = document.getElementById("subject");
+        const messageInput = document.getElementById("message");
+
+        const name = nameInput?.value.trim();
+        const email = emailInput?.value.trim();
+        const subject = subjectInput?.value.trim();
+        const message = messageInput?.value.trim();
+
+        /* ==============================
+           VALIDATION
+        ============================== */
+
+        if (!name || !email || !subject || !message) {
+
+            if (formStatus) {
+                formStatus.textContent =
+                    "Please complete all fields.";
+                formStatus.className =
+                    "form-status error";
+            }
+
+            return;
+        }
+
+        const emailPattern =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+
+            if (formStatus) {
+                formStatus.textContent =
+                    "Please enter a valid email address.";
+                formStatus.className =
+                    "form-status error";
+            }
+
+            return;
+        }
+
+        /* ==============================
+           LOADING
+        ============================== */
+
+        if (contactSubmit) {
+
+            contactSubmit.disabled = true;
+
+            contactSubmit.classList.add(
+                "is-loading"
+            );
+
+            const text =
+                contactSubmit.querySelector(
+                    ".submit-text"
+                );
+
+            if (text) {
+                text.textContent = "Sending...";
+            }
+        }
+
+        if (formStatus) {
+
+            formStatus.textContent =
+                "Sending your message...";
+
+            formStatus.className =
+                "form-status";
+        }
+
+        /* ==============================
+           SEND TO VERCEL API
+        ============================== */
+
+        try {
+
+            const response = await fetch(
+                "/api/contact",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        subject,
+                        message
+                    })
+                }
+            );
+
+            const result =
+                await response.json();
+
+            /* ==========================
+               SERVER ERROR
+            ========================== */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    "Failed to send message."
+                );
+            }
+
+            /* ==========================
+               SUCCESS
+            ========================== */
+
+            if (formStatus) {
+
+                formStatus.textContent =
+                    "✓ Message sent successfully.";
+
+                formStatus.className =
+                    "form-status success";
+            }
+
+            contactForm.reset();
+
+        } catch (error) {
+
+            console.error(
+                "Contact form error:",
+                error
+            );
+
+            if (formStatus) {
+
+                formStatus.textContent =
+                    "✕ " +
+                    (
+                        error.message ||
+                        "Unable to send message."
+                    );
+
+                formStatus.className =
+                    "form-status error";
+            }
+
+        } finally {
+
+            /* ==========================
+               RESTORE BUTTON
+            ========================== */
+
+            if (contactSubmit) {
+
+                contactSubmit.disabled = false;
+
+                contactSubmit.classList.remove(
+                    "is-loading"
+                );
+
+                const text =
+                    contactSubmit.querySelector(
+                        ".submit-text"
+                    );
+
+                if (text) {
+                    text.textContent =
+                        "Send Message";
+                }
+            }
+        }
+
+    });
+
+}

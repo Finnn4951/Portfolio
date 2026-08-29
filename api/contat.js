@@ -56,7 +56,7 @@ module.exports = async function handler(req, res) {
         // =================================================
 
         const emailPattern =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailPattern.test(email)) {
 
