@@ -1,0 +1,447 @@
+/* =====================================================
+   FINAL RESPONSIVE SYSTEM
+===================================================== */
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1024px) {
+
+    .hero-container {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 50px;
+
+    }
+
+
+    .hero-content {
+
+        max-width: 720px;
+
+    }
+
+
+    .hero-visual {
+
+        max-width: 700px;
+
+        margin-inline: auto;
+
+    }
+
+
+    .about-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 45px;
+
+    }
+
+
+    .contact-boxes {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .featured-project {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    /* =============================================
+       GLOBAL
+    ============================================== */
+
+    .section {
+
+        padding-top: 80px;
+        padding-bottom: 80px;
+
+    }
+
+
+    .section-container {
+
+        width: min(
+            100% - 32px,
+            1200px
+        );
+
+    }
+
+
+    /* =============================================
+       NAVBAR
+    ============================================== */
+
+    .navbar {
+
+        padding-inline: 20px;
+
+    }
+
+
+    .nav-links {
+
+        position: fixed;
+
+        inset:
+            72px 16px auto 16px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        padding: 20px;
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transform:
+            translateY(-15px);
+
+        transition:
+            opacity .3s ease,
+            transform .3s ease,
+            visibility .3s ease;
+
+    }
+
+
+    .nav-links.active {
+
+        opacity: 1;
+
+        visibility: visible;
+
+        transform:
+            translateY(0);
+
+    }
+
+
+    .nav-toggle {
+
+        display: flex;
+
+    }
+
+
+    /* =============================================
+       HERO
+    ============================================== */
+
+    .hero {
+
+        min-height: auto;
+
+        padding-top: 130px;
+
+    }
+
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                3rem,
+                15vw,
+                6rem
+            );
+
+    }
+
+
+    .hero-description {
+
+        max-width: 100%;
+
+    }
+
+
+    /* =============================================
+       SECTION TITLE
+    ============================================== */
+
+    .section-title {
+
+        font-size:
+            clamp(
+                2.3rem,
+                10vw,
+                4rem
+            );
+
+    }
+
+
+    /* =============================================
+       ABOUT
+    ============================================== */
+
+    .about-visual {
+
+        width: 100%;
+
+    }
+
+
+    .about-details {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    /* =============================================
+       PORTFOLIO TABS
+    ============================================== */
+
+    .portfolio-tabs {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 8px;
+
+    }
+
+
+    .portfolio-tab {
+
+        min-height: 70px;
+
+    }
+
+
+    /* =============================================
+       PROJECT
+    ============================================== */
+
+    .projects-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+
+    }
+
+
+    .featured-project {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .featured-info {
+
+        padding: 25px;
+
+    }
+
+
+    /* =============================================
+       MEMORY
+    ============================================== */
+
+    .memory-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    /* =============================================
+       CONTACT
+    ============================================== */
+
+    .contact-boxes {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .contact-box {
+
+        padding: 24px;
+
+    }
+
+
+    /* =============================================
+       FOOTER
+    ============================================== */
+
+    .footer-container {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .section-container {
+
+        width:
+            min(
+                100% - 24px,
+                1200px
+            );
+
+    }
+
+
+    .hero {
+
+        padding-top: 110px;
+
+    }
+
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                2.8rem,
+                16vw,
+                4.5rem
+            );
+
+    }
+
+
+    .portfolio-tabs {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .portfolio-tab {
+
+        min-height: 62px;
+
+    }
+
+
+    .contact-box {
+
+        padding: 20px;
+
+    }
+
+
+    .social-contact {
+
+        padding: 14px;
+
+    }
+
+}
+
+/* =====================================================
+   FINAL NAVIGATION ALIGNMENT FIX
+   Matches index.html:
+   .nav-menu + .menu-toggle
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .nav-menu {
+        position: fixed;
+        inset: 72px 16px auto 16px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        padding: 20px;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-15px);
+
+        transition:
+            opacity .3s ease,
+            transform .3s ease,
+            visibility .3s ease;
+
+        z-index: 1000;
+    }
+
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu-toggle.active span:first-child {
+        transform: rotate(45deg) translate(4px, 4px);
+    }
+
+    .menu-toggle.active span:last-child {
+        transform: rotate(-45deg) translate(4px, -4px);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .nav-menu {
+        inset: 68px 12px auto 12px;
+        padding: 16px;
+    }
+
+}
