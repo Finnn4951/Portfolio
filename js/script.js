@@ -1673,7 +1673,7 @@ if (contactForm) {
             return;
         }
 
-        const emailPattern =
+       const emailPattern =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailPattern.test(email)) {
@@ -1744,8 +1744,19 @@ if (contactForm) {
                 }
             );
 
-            const result =
-                await response.json();
+            const responseText = await response.text();
+
+let result;
+
+try {
+    result = JSON.parse(responseText);
+} catch {
+    console.error("Server response:", responseText);
+
+    throw new Error(
+        "Server returned an invalid response."
+    );
+}
 
             /* ==========================
                SERVER ERROR
