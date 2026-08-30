@@ -1634,202 +1634,242 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 /* =====================================================
-   CONTACT FORM — VERCEL + RESEND
+   CONTACT FORM — MAILTO
 ===================================================== */
 
 const contactForm = document.getElementById("contactForm");
 const contactSubmit = document.getElementById("contactSubmit");
 const formStatus = document.getElementById("formStatus");
 
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const subjectInput = document.getElementById("subject");
+const messageInput = document.getElementById("message");
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function validateContactInput(input) {
+
+    if (!input) return false;
+
+    const value = input.value.trim();
+
+    if (!value) {
+        input.classList.remove("valid");
+        input.classList.add("invalid");
+        return false;
+    }
+
+    input.classList.remove("invalid");
+    input.classList.add("valid");
+
+    return true;
+}
+
+
+function validateContactEmail(input) {
+
+    if (!input) return false;
+
+    const email = input.value.trim();
+
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!pattern.test(email)) {
+        input.classList.remove("valid");
+        input.classList.add("invalid");
+        return false;
+    }
+
+    input.classList.remove("invalid");
+    input.classList.add("valid");
+
+    return true;
+}
+
+
+/* =====================================================
+   LIVE VALIDATION
+===================================================== */
+
+[nameInput, subjectInput, messageInput].forEach(input => {
+
+    if (!input) return;
+
+    input.addEventListener("input", () => {
+        validateContactInput(input);
+    });
+
+});
+
+
+if (emailInput) {
+
+    emailInput.addEventListener("input", () => {
+        validateContactEmail(emailInput);
+    });
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showContactStatus(message, type) {
+
+    if (!formStatus) return;
+
+    formStatus.textContent = message;
+
+    formStatus.className =
+        "form-status show " + type;
+}
+
+
+/* =====================================================
+   SEND EMAIL
+===================================================== */
+
 if (contactForm) {
 
-    contactForm.addEventListener("submit", async (event) => {
+    contactForm.addEventListener("submit", event => {
 
         event.preventDefault();
 
-        const nameInput = document.getElementById("name");
-        const emailInput = document.getElementById("email");
-        const subjectInput = document.getElementById("subject");
-        const messageInput = document.getElementById("message");
 
-        const name = nameInput?.value.trim();
-        const email = emailInput?.value.trim();
-        const subject = subjectInput?.value.trim();
-        const message = messageInput?.value.trim();
+        /* =============================================
+           VALIDATE
+        ============================================= */
 
-        /* ==============================
-           VALIDATION
-        ============================== */
+        const validName =
+            validateContactInput(nameInput);
 
-        if (!name || !email || !subject || !message) {
+        const validEmail =
+            validateContactEmail(emailInput);
 
-            if (formStatus) {
-                formStatus.textContent =
-                    "Please complete all fields.";
-                formStatus.className =
-                    "form-status error";
-            }
+        const validSubject =
+            validateContactInput(subjectInput);
+
+        const validMessage =
+            validateContactInput(messageInput);
+
+
+        if (
+            !validName ||
+            !validEmail ||
+            !validSubject ||
+            !validMessage
+        ) {
+
+            showContactStatus(
+                "Please complete all fields correctly.",
+                "error"
+            );
 
             return;
         }
 
-       const emailPattern =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!emailPattern.test(email)) {
+        /* =============================================
+           GET DATA
+        ============================================= */
 
-            if (formStatus) {
-                formStatus.textContent =
-                    "Please enter a valid email address.";
-                formStatus.className =
-                    "form-status error";
-            }
+        const name =
+            nameInput.value.trim();
 
-            return;
-        }
+        const email =
+            emailInput.value.trim();
 
-        /* ==============================
-           LOADING
-        ============================== */
+        const subject =
+            subjectInput.value.trim();
 
-        if (contactSubmit) {
+        const message =
+            messageInput.value.trim();
 
-            contactSubmit.disabled = true;
 
-            contactSubmit.classList.add(
-                "is-loading"
-            );
+        /* =============================================
+           YOUR EMAIL
+           
+           GANTI DENGAN EMAIL KAMU
+        ============================================= */
 
-            const text =
-                contactSubmit.querySelector(
-                    ".submit-text"
-                );
+        const destination =
+            "oktafinooo@gmail.com";
 
-            if (text) {
-                text.textContent = "Sending...";
-            }
-        }
 
-        if (formStatus) {
+        /* =============================================
+           CREATE EMAIL
+        ============================================= */
 
-            formStatus.textContent =
-                "Sending your message...";
+        const mailSubject =
+            `[Portfolio] ${subject}`;
 
-            formStatus.className =
-                "form-status";
-        }
+        const mailBody =
+`Hi Finn,
 
-        /* ==============================
-           SEND TO VERCEL API
-        ============================== */
+You received a new message from your portfolio.
 
-        try {
+Name: ${name}
+Email: ${email}
 
-            const response = await fetch(
-                "/api/contact",
-                {
-                    method: "POST",
+Message:
+${message}
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+--------------------------------
+Sent from Finn Portfolio`;
 
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        subject,
-                        message
-                    })
-                }
-            );
 
-            const responseText = await response.text();
+        /* =============================================
+           CREATE MAILTO
+        ============================================= */
 
-let result;
+        const mailto =
+            "mailto:" +
+            destination +
+            "?subject=" +
+            encodeURIComponent(mailSubject) +
+            "&body=" +
+            encodeURIComponent(mailBody);
 
-try {
-    result = JSON.parse(responseText);
-} catch {
-    console.error("Server response:", responseText);
 
-    throw new Error(
-        "Server returned an invalid response."
-    );
-}
+        /* =============================================
+           OPEN EMAIL CLIENT
+        ============================================= */
 
-            /* ==========================
-               SERVER ERROR
-            ========================== */
+        showContactStatus(
+            "Opening your email app...",
+            "success"
+        );
 
-            if (!response.ok) {
 
-                throw new Error(
-                    result.message ||
-                    "Failed to send message."
-                );
-            }
+        window.location.href = mailto;
 
-            /* ==========================
-               SUCCESS
-            ========================== */
 
-            if (formStatus) {
+        /* =============================================
+           RESET
+        ============================================= */
 
-                formStatus.textContent =
-                    "✓ Message sent successfully.";
-
-                formStatus.className =
-                    "form-status success";
-            }
+        setTimeout(() => {
 
             contactForm.reset();
 
-        } catch (error) {
+            [nameInput, emailInput, subjectInput, messageInput]
+                .forEach(input => {
 
-            console.error(
-                "Contact form error:",
-                error
-            );
+                    if (!input) return;
 
-            if (formStatus) {
-
-                formStatus.textContent =
-                    "✕ " +
-                    (
-                        error.message ||
-                        "Unable to send message."
+                    input.classList.remove(
+                        "valid",
+                        "invalid"
                     );
 
-                formStatus.className =
-                    "form-status error";
-            }
+                });
 
-        } finally {
-
-            /* ==========================
-               RESTORE BUTTON
-            ========================== */
-
-            if (contactSubmit) {
-
-                contactSubmit.disabled = false;
-
-                contactSubmit.classList.remove(
-                    "is-loading"
-                );
-
-                const text =
-                    contactSubmit.querySelector(
-                        ".submit-text"
-                    );
-
-                if (text) {
-                    text.textContent =
-                        "Send Message";
-                }
-            }
-        }
+        }, 1000);
 
     });
 

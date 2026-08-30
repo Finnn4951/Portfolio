@@ -1,6 +1,29 @@
 /* =====================================================
    FINAL RESPONSIVE SYSTEM
+   MOBILE / TABLET OPTIMIZATION
 ===================================================== */
+
+/* =====================================================
+   GLOBAL RESPONSIVE SAFETY
+===================================================== */
+
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
 
 /* =====================================================
@@ -9,55 +32,67 @@
 
 @media (max-width: 1024px) {
 
-    .hero-container {
+    /* GLOBAL */
 
-        grid-template-columns:
-            1fr;
-
-        gap: 50px;
-
+    .section {
+        width: 100%;
+        overflow: hidden;
     }
 
+    .section-container {
+        width: min(92%, 1200px);
+        max-width: 100%;
+        margin-inline: auto;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .hero-container {
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
 
     .hero-content {
-
+        width: 100%;
         max-width: 720px;
-
+        min-width: 0;
     }
-
 
     .hero-visual {
-
+        width: 100%;
         max-width: 700px;
-
+        min-width: 0;
         margin-inline: auto;
-
     }
 
+
+    /* ABOUT */
 
     .about-grid {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
         gap: 45px;
-
     }
 
+
+    /* CONTACT */
 
     .contact-boxes {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
 
 
+    /* FEATURED PROJECT */
+
     .featured-project {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
 
 }
@@ -69,251 +104,407 @@
 
 @media (max-width: 768px) {
 
-    /* =============================================
+    /* =================================================
        GLOBAL
-    ============================================== */
+    ================================================= */
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
     .section {
-
-        padding-top: 80px;
-        padding-bottom: 80px;
-
+        width: 100%;
+        max-width: 100%;
+        padding-top: 70px;
+        padding-bottom: 70px;
+        overflow: hidden;
     }
-
 
     .section-container {
-
-        width: min(
-            100% - 32px,
-            1200px
-        );
-
+        width: calc(100% - 32px);
+        max-width: 100%;
+        margin-inline: auto;
+        padding-inline: 0;
     }
 
 
-    /* =============================================
+    /* =================================================
        NAVBAR
-    ============================================== */
+    ================================================= */
 
     .navbar {
-
-        padding-inline: 20px;
-
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 16px;
     }
 
-
-    .nav-links {
-
+    .nav-links,
+    .nav-menu {
         position: fixed;
 
-        inset:
-            72px 16px auto 16px;
+        top: 68px;
+        left: 12px;
+        right: 12px;
+
+        width: auto;
+        max-width: none;
 
         display: flex;
-
         flex-direction: column;
 
         gap: 8px;
-
-        padding: 20px;
+        padding: 16px;
 
         opacity: 0;
-
         visibility: hidden;
 
-        transform:
-            translateY(-15px);
+        transform: translateY(-12px);
 
         transition:
             opacity .3s ease,
             transform .3s ease,
             visibility .3s ease;
 
+        z-index: 1000;
+
+        overflow: hidden;
     }
 
-
-    .nav-links.active {
-
+    .nav-links.active,
+    .nav-menu.active {
         opacity: 1;
-
         visibility: visible;
-
-        transform:
-            translateY(0);
-
+        transform: translateY(0);
     }
 
-
-    .nav-toggle {
-
+    .nav-toggle,
+    .menu-toggle {
         display: flex;
+        align-items: center;
+        justify-content: center;
 
+        flex-shrink: 0;
     }
 
 
-    /* =============================================
+    /* =================================================
        HERO
-    ============================================== */
+    ================================================= */
 
     .hero {
-
+        width: 100%;
+        max-width: 100%;
         min-height: auto;
 
-        padding-top: 130px;
+        padding-top: 110px;
+        padding-bottom: 70px;
 
+        overflow: hidden;
     }
 
-
-    .hero-title {
-
-        font-size:
-            clamp(
-                3rem,
-                15vw,
-                6rem
-            );
-
-    }
-
-
-    .hero-description {
-
+    .hero-container {
+        width: 100%;
         max-width: 100%;
 
+        display: grid;
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        min-width: 0;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+    .hero-title {
+        width: 100%;
+        max-width: 100%;
+
+        font-size: clamp(
+            2.6rem,
+            13vw,
+            5rem
+        );
+
+        line-height: .95;
+
+        overflow-wrap: break-word;
+    }
+
+    .hero-description {
+        width: 100%;
+        max-width: 100%;
+
+        font-size: .95rem;
+        line-height: 1.7;
+
+        overflow-wrap: break-word;
+    }
+
+    .hero-visual {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        margin-inline: auto;
+
+        overflow: hidden;
+    }
+
+    .hero-visual img {
+        max-width: 100%;
+        height: auto;
     }
 
 
-    /* =============================================
+    /* =================================================
+       TYPEWRITER
+    ================================================= */
+
+    .hero-role {
+        max-width: 100%;
+        min-width: 0;
+
+        overflow: hidden;
+        white-space: nowrap;
+
+        font-size: clamp(
+            .9rem,
+            4vw,
+            1.1rem
+        );
+    }
+
+    #typewriter {
+        max-width: calc(100% - 15px);
+    }
+
+
+    /* =================================================
        SECTION TITLE
-    ============================================== */
+    ================================================= */
 
     .section-title {
+        max-width: 100%;
 
-        font-size:
-            clamp(
-                2.3rem,
-                10vw,
-                4rem
-            );
+        font-size: clamp(
+            2rem,
+            9vw,
+            4rem
+        );
 
+        line-height: 1;
+        overflow-wrap: break-word;
     }
 
 
-    /* =============================================
+    /* =================================================
        ABOUT
-    ============================================== */
+    ================================================= */
+
+    .about-grid {
+        width: 100%;
+        max-width: 100%;
+
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
 
     .about-visual {
-
         width: 100%;
-
+        max-width: 100%;
+        min-width: 0;
     }
 
+    .about-visual img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .about-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        overflow-wrap: break-word;
+    }
 
     .about-details {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
 
 
-    /* =============================================
+    /* =================================================
        PORTFOLIO TABS
-    ============================================== */
+    ================================================= */
 
     .portfolio-tabs {
+        width: 100%;
+        max-width: 100%;
 
         display: grid;
-
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
 
         gap: 8px;
-
     }
-
 
     .portfolio-tab {
+        min-width: 0;
+        min-height: 64px;
 
-        min-height: 70px;
-
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 
-    /* =============================================
+    /* =================================================
        PROJECT
-    ============================================== */
+    ================================================= */
 
     .projects-header {
+        width: 100%;
+        max-width: 100%;
 
         flex-direction: column;
-
         align-items: flex-start;
 
-        gap: 25px;
-
+        gap: 20px;
     }
-
 
     .featured-project {
+        width: 100%;
+        max-width: 100%;
 
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
-
 
     .featured-info {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
-        padding: 25px;
-
+        padding: 22px;
     }
 
 
-    /* =============================================
+    /* =================================================
+       WORKS
+    ================================================= */
+
+    .works-grid,
+    .work-grid {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .work-card {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .work-card img {
+        max-width: 100%;
+    }
+
+
+    /* =================================================
        MEMORY
-    ============================================== */
+    ================================================= */
 
     .memory-grid {
+        width: 100%;
+        max-width: 100%;
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
+    }
 
+    .memory-card {
+        min-width: 0;
+        max-width: 100%;
     }
 
 
-    /* =============================================
+    /* =================================================
        CONTACT
-    ============================================== */
+    ================================================= */
 
     .contact-boxes {
+        width: 100%;
+        max-width: 100%;
 
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
-
 
     .contact-box {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
-        padding: 24px;
+        padding: 22px;
 
+        overflow: hidden;
+    }
+
+    .contact-form {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-group {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .social-contact {
+        width: 100%;
+        max-width: 100%;
+
+        min-width: 0;
+        padding: 13px;
+    }
+
+    .social-contact-info {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .social-contact-info strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
 
-    /* =============================================
+    /* =================================================
        FOOTER
-    ============================================== */
+    ================================================= */
 
     .footer-container {
+        width: 100%;
+        max-width: 100%;
 
         flex-direction: column;
-
         align-items: flex-start;
 
         gap: 10px;
-
     }
 
 }
@@ -321,73 +512,128 @@
 
 /* =====================================================
    SMALL MOBILE
+   480px
 ===================================================== */
 
 @media (max-width: 480px) {
 
+    /* GLOBAL */
+
     .section-container {
-
-        width:
-            min(
-                100% - 24px,
-                1200px
-            );
-
+        width: calc(100% - 24px);
+        max-width: 100%;
     }
 
+
+    /* HERO */
 
     .hero {
-
-        padding-top: 110px;
-
+        padding-top: 100px;
+        padding-bottom: 60px;
     }
-
 
     .hero-title {
-
-        font-size:
-            clamp(
-                2.8rem,
-                16vw,
-                4.5rem
-            );
-
+        font-size: clamp(
+            2.4rem,
+            15vw,
+            4.2rem
+        );
     }
 
+    .hero-description {
+        font-size: .9rem;
+        line-height: 1.65;
+    }
+
+    .hero-role {
+        font-size: .9rem;
+    }
+
+
+    /* SECTION */
+
+    .section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .section-title {
+        font-size: clamp(
+            1.9rem,
+            10vw,
+            3.5rem
+        );
+    }
+
+
+    /* PORTFOLIO */
 
     .portfolio-tabs {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
-
 
     .portfolio-tab {
-
-        min-height: 62px;
-
+        min-height: 58px;
     }
 
+
+    /* CONTACT */
 
     .contact-box {
+        padding: 18px;
+    }
 
-        padding: 20px;
-
+    .social-contact {
+        padding: 12px;
     }
 
 
-    .social-contact {
+    /* NAV */
+
+    .nav-links,
+    .nav-menu {
+        top: 64px;
+        left: 10px;
+        right: 10px;
 
         padding: 14px;
-
     }
 
 }
 
+
 /* =====================================================
-   FINAL NAVIGATION ALIGNMENT FIX
-   Matches index.html:
+   VERY SMALL DEVICES
+   360px
+===================================================== */
+
+@media (max-width: 360px) {
+
+    .section-container {
+        width: calc(100% - 20px);
+    }
+
+    .hero-title {
+        font-size: 2.3rem;
+    }
+
+    .hero-description {
+        font-size: .85rem;
+    }
+
+    .contact-box {
+        padding: 16px;
+    }
+
+    .portfolio-tab {
+        min-height: 54px;
+    }
+
+}
+
+
+/* =====================================================
+   FINAL MOBILE NAVIGATION
    .nav-menu + .menu-toggle
 ===================================================== */
 
@@ -395,18 +641,23 @@
 
     .nav-menu {
         position: fixed;
-        inset: 72px 16px auto 16px;
+
+        top: 68px;
+        left: 12px;
+        right: 12px;
+
+        width: auto;
 
         display: flex;
         flex-direction: column;
-        gap: 8px;
 
-        padding: 20px;
+        gap: 8px;
+        padding: 16px;
 
         opacity: 0;
         visibility: hidden;
 
-        transform: translateY(-15px);
+        transform: translateY(-12px);
 
         transition:
             opacity .3s ease,
@@ -419,29 +670,52 @@
     .nav-menu.active {
         opacity: 1;
         visibility: visible;
+
         transform: translateY(0);
     }
 
     .menu-toggle {
         display: flex;
+
         align-items: center;
         justify-content: center;
+
+        flex-shrink: 0;
     }
 
     .menu-toggle.active span:first-child {
-        transform: rotate(45deg) translate(4px, 4px);
+        transform:
+            rotate(45deg)
+            translate(4px, 4px);
     }
 
     .menu-toggle.active span:last-child {
-        transform: rotate(-45deg) translate(4px, -4px);
+        transform:
+            rotate(-45deg)
+            translate(4px, -4px);
     }
+
 }
 
-@media (max-width: 480px) {
 
-    .nav-menu {
-        inset: 68px 12px auto 12px;
-        padding: 16px;
+/* =====================================================
+   MOBILE IMAGE SAFETY
+   Prevent oversized images from pushing page sideways
+===================================================== */
+
+@media (max-width: 768px) {
+
+    img,
+    video,
+    iframe,
+    svg {
+        max-width: 100%;
+    }
+
+    .hero *,
+    .section *,
+    .contact-section * {
+        max-width: 100%;
     }
 
 }
