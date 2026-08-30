@@ -1631,7 +1631,166 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(
         "Portfolio system initialized."
     );
+    /* =====================================================
+   EDUCATION CERTIFICATE MODAL
+===================================================== */
 
+const educationCards =
+    document.querySelectorAll(
+        ".education-card[data-certificate]"
+    );
+
+const certificateModal =
+    document.getElementById(
+        "certificateModal"
+    );
+
+const certificateImage =
+    document.getElementById(
+        "certificateImage"
+    );
+
+const certificateTitle =
+    document.getElementById(
+        "certificateTitle"
+    );
+
+const certificateClose =
+    document.getElementById(
+        "certificateClose"
+    );
+
+const certificateOverlay =
+    document.querySelector(
+        ".certificate-overlay"
+    );
+
+
+function openCertificate(card) {
+
+    if (
+        !certificateModal ||
+        !certificateImage
+    ) {
+        return;
+    }
+
+    const image =
+        card.dataset.certificate;
+
+    const title =
+        card.dataset.certificateTitle ||
+        "Certificate";
+
+
+    certificateImage.src = image;
+
+    certificateImage.alt =
+        `${title} Certificate`;
+
+    if (certificateTitle) {
+        certificateTitle.textContent =
+            title;
+    }
+
+
+    certificateModal.classList.add(
+        "active"
+    );
+
+    certificateModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+function closeCertificate() {
+
+    if (!certificateModal) {
+        return;
+    }
+
+    certificateModal.classList.remove(
+        "active"
+    );
+
+    certificateModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.style.overflow =
+        "";
+
+    setTimeout(() => {
+
+        if (certificateImage) {
+            certificateImage.src = "";
+        }
+
+    }, 300);
+}
+
+
+/* OPEN */
+
+educationCards.forEach(card => {
+
+    card.addEventListener(
+        "click",
+        () => {
+            openCertificate(card);
+        }
+    );
+
+});
+
+
+/* CLOSE BUTTON */
+
+if (certificateClose) {
+
+    certificateClose.addEventListener(
+        "click",
+        closeCertificate
+    );
+
+}
+
+
+/* CLICK OVERLAY */
+
+if (certificateOverlay) {
+
+    certificateOverlay.addEventListener(
+        "click",
+        closeCertificate
+    );
+
+}
+
+
+/* ESCAPE */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            certificateModal?.classList.contains(
+                "active"
+            )
+        ) {
+            closeCertificate();
+        }
+
+    }
+);
 });
 /* =====================================================
    CONTACT FORM — MAILTO
