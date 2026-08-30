@@ -1,1398 +1,371 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
 
-    <!-- Responsive -->
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
-    <!-- SEO -->
     <meta
-    name="description"
-    content="Finn — Visual Creative portfolio featuring photography, graphic design, programming, and digital media."
->
-
-<meta
-    name="author"
-    content="Finn"
->
-
-<meta
-    name="robots"
-    content="index, follow"
->
-
-    <meta
-    property="og:title"
-    content="Finn — Visual Creative"
->
-
-<meta
-    property="og:description"
-    content="Photography, Graphic Design, Programming & Digital Media."
->
-
-<meta
-    property="og:type"
-    content="website"
->
-
-<meta
-    property="og:image"
-    content="assets/images/hero/hero.jpg"
->
+        name="description"
+        content="Finn Portfolio"
+    >
 
     <title>Finn Portfolio</title>
 
-    <!-- Main CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet"
-        href="css/style.css"
     >
 
-    <!-- Responsive CSS -->
-    <link
-        rel="stylesheet"
-        href="css/responsive.css"
-    >
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 
 <body>
 
-
-    <!-- =====================================================
-         CURSOR GLOW
-    ====================================================== -->
-
-    <div
-        class="cursor-glow"
-        id="cursorGlow"
-    ></div>
-
-
-
-   <!-- =====================================================
-     CAMERA LOADER
+<!-- =====================================================
+     LOADER
 ===================================================== -->
 
-<div 
-id="camera-loader"
-class="loader">
-    
-    <div class="camera-loader">
+<div class="camera-loader" id="camera-loader">
 
-        <!-- Top camera information -->
-        <div class="camera-top">
+    <div class="loader-top">
+        <span>FINN / PORTFOLIO 02</span>
+        <span>REC</span>
+    </div>
 
-            <span>FINN CAM</span>
+    <div class="loader-viewfinder">
 
-            <span class="camera-status">
-                <i></i>
-                REC
-            </span>
+        <span class="corner corner-tl"></span>
+        <span class="corner corner-tr"></span>
+        <span class="corner corner-bl"></span>
+        <span class="corner corner-br"></span>
 
+        <div class="focus-box"></div>
+
+        <div class="viewfinder-center">
+            +
         </div>
 
+        <p class="focus-text">
+            FOCUSING
+        </p>
 
-        <!-- Viewfinder -->
-        <div class="viewfinder">
+    </div>
 
-            <div class="focus-box">
+    <div class="loader-bottom">
 
-                <span class="focus-corner top-left"></span>
-                <span class="focus-corner top-right"></span>
-                <span class="focus-corner bottom-left"></span>
-                <span class="focus-corner bottom-right"></span>
+        <span>CREATIVE SYSTEM</span>
 
-            </div>
-
-
-            <div class="focus-text">
-                <span>FOCUSING</span>
-            </div>
-
-
-            <div class="viewfinder-center">
-                +
-            </div>
-
-
-            <div class="viewfinder-grid"></div>
-
-
-            <div class="shutter-ring">
-
-                <div class="shutter-blade blade-1"></div>
-                <div class="shutter-blade blade-2"></div>
-                <div class="shutter-blade blade-3"></div>
-                <div class="shutter-blade blade-4"></div>
-                <div class="shutter-blade blade-5"></div>
-                <div class="shutter-blade blade-6"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Bottom camera information -->
-        <div class="camera-bottom">
-
-            <div class="camera-setting">
-                35MM
-            </div>
-
-            <div class="camera-setting">
-                F / 1.8
-            </div>
-
-            <div class="camera-setting">
-                1 / 250
-            </div>
-
-            <div class="camera-progress">
-
-                <span class="loader-number">
-                    00
-                </span>
-
-                <small>%</small>
-
-            </div>
-
-        </div>
-
-
-        <!-- Shutter flash -->
-        <div class="camera-flash"></div>
-
-
-        <!-- Final message -->
-        <div class="camera-ready">
-            <span>SHOT READY</span>
-        </div>
+        <strong class="loader-number">
+            0%
+        </strong>
 
     </div>
 
 </div>
 
 
-    <!-- =====================================================
-         NAVIGATION
-    ====================================================== -->
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
-    <header class="site-header">
+<header class="navbar">
 
-        <nav class="navbar">
-
-
-            <!-- Logo -->
-
-            <a
-                href="#home"
-                class="logo"
-                aria-label="Finn Home"
-            >
-                FINN<span></span>
-            </a>
+    <a href="#home" class="brand">
+        FINN
+    </a>
 
 
+    <nav class="nav-menu">
 
-            <!-- Desktop Navigation -->
+        <a href="#home" class="nav-link active">
+            HOME
+        </a>
 
-            <div class="nav-menu">
+        <a href="#about" class="nav-link">
+            ABOUT
+        </a>
+
+        <a
+            href="https://your-works-website.vercel.app"
+            class="nav-link"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            WORKS <span>↗</span>
+        </a>
+
+        <a href="#education" class="nav-link">
+            EDUCATION
+        </a>
+
+        <a href="#memory" class="nav-link">
+            MEMORY
+        </a>
+
+        <a href="#contact" class="nav-link">
+            CONTACT
+        </a>
+
+    </nav>
+
+
+    <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        <span></span>
+        <span></span>
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-grid">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+
+                <span class="status-dot"></span>
+
+                READY TO CREATE
+
+            </div>
+
+
+            <p class="hero-eyebrow">
+                CREATIVE VISUAL PORTFOLIO 
+            </p>
+
+
+            <h1 class="hero-title">
+
+                I CREATE
+
+                <span>VISUALS</span>
+
+                THAT SPEAK
+
+            </h1>
+
+
+            <p class="hero-description">
+                Photography, design, and visual storytelling
+                shaped through curiosity, experimentation,
+                and a strong attention to detail.
+            </p>
+
+
+            <div class="hero-actions">
 
                 <a
-                    href="#home"
-                    class="nav-link active"
+                    href="https://your-works-website.vercel.app"
+                    class="button button-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
-                    <span class="nav-number">
-                        01
-                    </span>
-
-                    Home
+                    VIEW MY WORKS
+                    <span>↗</span>
                 </a>
-
 
                 <a
                     href="#about"
-                    class="nav-link"
+                    class="button button-secondary"
                 >
-                    <span class="nav-number">
-                        02
-                    </span>
-
-                    About
-                </a>
-
-
-                <a
-                    href="#portfolio"
-                    class="nav-link"
-                >
-                    <span class="nav-number">
-                        03
-                    </span>
-
-                    Portfolio
-                </a>
-
-
-                <a
-                    href="#memory"
-                    class="nav-link"
-                >
-                    <span class="nav-number">
-                        04
-                    </span>
-
-                    Memory
-                </a>
-
-
-                <a
-                    href="#contact"
-                    class="nav-link"
-                >
-                    <span class="nav-number">
-                        05
-                    </span>
-
-                    Contact
+                    ABOUT ME
                 </a>
 
             </div>
 
+        </div>
 
 
-            <!-- Mobile Menu Button -->
+        <div class="hero-visual">
 
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-            >
+            <div class="hero-frame">
 
-                <span></span>
-                <span></span>
+                <!-- Ganti dengan foto hero kamu -->
 
-            </button>
+                <img
+                    src="assets/images/hero.jpg"
+                    alt="Finn "
+                    class="hero-image"
+                >
 
 
-        </nav>
-
-    </header>
+                <div class="hero-overlay"></div>
 
 
-
-    <!-- =====================================================
-         MAIN CONTENT
-    ====================================================== -->
-
-    <main>
+                <div class="hero-number">
+                    01
+                </div>
 
 
+                <div class="hero-caption">
 
-        <!-- =================================================
-             01 / HOME
-        ================================================== -->
-
-        <section
-            id="home"
-            class="hero section"
-        >
-
-            <div class="hero-container">
-
-
-                <!-- =========================================
-                     HERO CONTENT
-                ========================================== -->
-
-                <div class="hero-content">
-
-
-                    <!-- Status -->
-
-                    <div class="hero-label">
-
-                        <span class="status-dot"></span>
-
-                        READY TO CREATE
-
-                    </div>
-
-
-
-                    <!-- Main Heading -->
-
-                    <h1 class="hero-title">
-
-                        VISUAL
-
-                        <span>
-                            CREATIVE
-                        </span>
-
-                    </h1>
-
-
-
-                    <!-- Role -->
-
-<div class="hero-role">
-    <span id="typewriter"></span>
-    <span class="typewriter-cursor">|</span>
-</div>
-
-                    <!-- Description -->
-
-                    <p class="hero-description">
-
-                        Creating visual experiences through
-                        photography, graphic design,
-                        programming, and digital media.
-
-                    </p>
-
-
-
-                    <!-- Hero Buttons -->
-
-                    <div class="hero-actions">
-
-
-                        <a
-                            href="#portfolio"
-                            class="btn btn-primary"
-                        >
-
-                            <span>
-                                VIEW PORTFOLIO
-                            </span>
-
-                            <span class="btn-icon">
-                                ↗
-                            </span>
-
-                        </a>
-
-
-
-                        <a
-                            href="#contact"
-                            class="btn btn-secondary"
-                        >
-
-                            <span>
-                                CONTACT
-                            </span>
-
-                            <span class="btn-icon">
-                                □
-                            </span>
-
-                        </a>
-
-
-                    </div>
-
-
-
-            
-
+                    <span>VISUAL</span>
+                    <span>STORYTELLING</span>
 
                 </div>
 
 
-
-                <!-- HERO VISUAL -->
-
-<div class="hero-visual">
-
-    <!-- BACKGROUND GLOW -->
-
-    <div class="hero-glow hero-glow-one"></div>
-
-    <div class="hero-glow hero-glow-two"></div>
-
-
-    <!-- LAPTOP -->
-
-    <div class="hero-laptop-wrap">
-
-        <img
-            src="assets/images/hero/laptop.png"
-            alt="Laptop"
-            class="hero-laptop"
-        >
-
-    </div>
-
-
-    <!-- COFFEE -->
-
-    <div class="hero-coffee-wrap">
-
-        <img
-            src="assets/images/hero/coffee.png"
-            alt="Coffee"
-            class="hero-coffee"
-        >
-
-    </div>
-
-</div>
-
-
-            <!-- Scroll Indicator -->
-
-            <a
-                href="#portfolio"
-                class="scroll-indicator"
-            >
-
-                <span>
-                    SCROLL TO EXPLORE
-                </span>
-
-                <span class="scroll-line"></span>
-
-            </a>
-
-
-        </section>
-
-
-
-
-
-
-
-        <!-- =================================================
-             02 / ABOUT
-        ================================================== -->
-
-        <section
-            id="about"
-            class="about section"
-        >
-
-            <div class="section-container">
-
-
-                <!-- Header -->
-<div class="section-header reveal">
-
-                    <div class="section-index">
-                        02 / ABOUT
-                    </div>
-
-                    <h2 class="section-title">
-
-                        ABOUT
-
-                        <span>
-                            ME
-                        </span>
-
-                    </h2>
-
-                </div>
-
-
-
-                <!-- About Grid -->
-
-                <div class="about-grid">
-
-
-                    <!-- Profile -->
-
-                    <div class="about-visual reveal-left">
-
-                        <img
-                            src="assets/images/profile/profile.jpg"
-                            alt="Finn"
-                            loading="lazy"
-                            decoding="async"
-                        >
-
-                    </div>
-
-
-
-                    <!-- About Content -->
-
-                    <div class="about-content reveal-right">
-
-
-                        <p class="about-intro">
-
-                            I'm Finn — a visual creative
-                            interested in photography,
-                            graphic design, programming,
-                            and digital media.
-
-                        </p>
-
-
-
-                        <p class="about-text">
-
-                            I enjoy combining visual creativity
-                            with technology to create digital
-                            experiences that are functional,
-                            expressive, and visually engaging.
-
-                        </p>
-
-
-
-                        <!-- About Details -->
-
-                        <div class="about-details">
-
-
-                            <div class="about-detail">
-
-                                <span>
-                                    FOCUS
-                                </span>
-
-                                <strong>
-                                    Visual & Digital Media
-                                </strong>
-
-                            </div>
-
-
-                            <div class="about-detail">
-
-                                <span>
-                                    INTEREST
-                                </span>
-
-                                <strong>
-                                    Photography • Design • Programming
-                                </strong>
-
-                            </div>
-
-
-                            <div class="about-detail">
-
-                                <span>
-                                    BASE
-                                </span>
-
-                                <strong>
-                                    Indonesia
-                                </strong>
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
+                <div class="hero-frame-line"></div>
 
             </div>
 
-        </section>
+        </div>
+
+    </div>
 
 
-<!-- =================================================
-     03 / PORTFOLIO
-================================================== -->
+    <div class="hero-meta">
 
-<section
-    id="portfolio"
-    class="portfolio-section section"
->
+        <span>PHOTOGRAPHY</span>
+        <span>DESIGN</span>
+        <span>VISUAL MEDIA</span>
+
+        <span class="hero-scroll">
+            SCROLL TO EXPLORE ↓
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="section about" id="about">
 
     <div class="section-container">
 
+        <div class="section-heading">
 
-        <!-- =========================================
-             SECTION HEADER
-        ========================================== -->
-
-        <div class="section-header reveal">
-
-            <div class="section-index">
-                03 / PORTFOLIO
-            </div>
-
-
-            <h2 class="section-title">
-
-                PORTFOLIO
-
-                <span>
-                    SHOWCASE
-                </span>
-
-            </h2>
-
-
-            <p class="section-description">
-
-                This is the digital footprint
-                of my creative and technical journey.
-
-            </p>
-
-        </div>
-
-
-        <!-- =========================================
-             PORTFOLIO CONTENT
-        ========================================== -->
-
-        <div class="portfolio-content">
-
-
-            <!-- =====================================
-                 PORTFOLIO NAVIGATION
-            ====================================== -->
-
-            <div class="portfolio-tabs reveal">
-
-                <button
-                    class="portfolio-tab active"
-                    data-target="projects"
-                >
-
-                    <div class="tab-icon">
-                        ◈
-                    </div>
-
-                    <span>
-                        Proyek
-                    </span>
-
-                </button>
-
-
-                <button
-                    class="portfolio-tab"
-                    data-target="education"
-                >
-
-                    <div class="tab-icon">
-                        🎓
-                    </div>
-
-                    <span>
-                        Edukasi
-                    </span>
-
-                </button>
-
-
-                <button
-                    class="portfolio-tab"
-                    data-target="techstack"
-                >
-
-                    <div class="tab-icon">
-                        ◇
-                    </div>
-
-                    <span>
-                        Tech Stack
-                    </span>
-
-                </button>
-
-
-                <button
-                    class="portfolio-tab"
-                    data-target="applications"
-                >
-
-                    <div class="tab-icon">
-                        ▣
-                    </div>
-
-                    <span>
-                        Application
-                    </span>
-
-                </button>
-
-            </div>
-
-
-            <!-- =====================================
-                 PROJECT
-            ====================================== -->
-
-            <div
-                class="portfolio-panel active"
-                id="projects"
-            >
-
-                <div class="projects-container">
-
-
-                    <div class="projects-header">
-
-                        <div>
-
-                            <span class="section-label">
-                                SELECTED PROJECT
-                            </span>
-
-
-                            <h2>
-                                My <span>Project.</span>
-                            </h2>
-
-
-                            <p>
-                                A selected project I'm currently
-                                building and developing.
-                            </p>
-
-                        </div>
-
-
-                        <div class="projects-count">
-
-                            <span>
-                                PROJECT
-                            </span>
-
-                            <strong>
-                                01
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- FEATURED PROJECT -->
-
-                    <article class="featured-project reveal-scale">
-
-
-                        <!-- PROJECT IMAGE -->
-
-                        <a
-                            href="https://example.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="featured-preview"
-                        >
-
-                            <img
-                                src="assets/images/projects/project-preview.jpg"
-                                alt="Featured Project"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-
-                            <div class="featured-overlay">
-
-                                <span>
-                                    VISIT PROJECT
-                                </span>
-
-
-                                <div class="featured-overlay-arrow">
-                                    ↗
-                                </div>
-
-                            </div>
-
-                        </a>
-
-
-                        <!-- PROJECT INFO -->
-
-                        <div class="featured-info">
-
-
-                            <span class="featured-number">
-                                01 / FEATURED PROJECT
-                            </span>
-
-
-                            <div class="featured-content">
-
-
-                                <div class="featured-meta">
-
-                                    <span>
-                                        WEB DEVELOPMENT
-                                    </span>
-
-                                    <span>
-                                        2026
-                                    </span>
-
-                                </div>
-
-
-                                <h3>
-                                    Project Website
-                                </h3>
-
-
-                                <p>
-
-                                    A digital project combining
-                                    visual design, programming,
-                                    and interactive experiences.
-
-                                    This project is currently
-                                    being developed.
-
-                                </p>
-
-
-                                <!-- TAGS -->
-
-                                <div class="project-tags">
-
-                                    <span>
-                                        HTML
-                                    </span>
-
-                                    <span>
-                                        CSS
-                                    </span>
-
-                                    <span>
-                                        JavaScript
-                                    </span>
-
-                                </div>
-
-
-                                <!-- BUTTON -->
-
-                                <a
-                                    href="https://example.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="project-visit"
-                                >
-
-                                    <span>
-                                        Visit Project
-                                    </span>
-
-                                    <span>
-                                        ↗
-                                    </span>
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PROJECT FOOTER -->
-
-                    <div class="projects-footer">
-
-                        <span>
-                            ONE PROJECT
-                        </span>
-
-                        <span class="projects-line"></span>
-
-                        <span>
-                            MORE COMING SOON
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-          <!-- =====================================
-     EDUCATION
-====================================== -->
-
-<div
-    class="portfolio-panel"
-    id="education"
->
-
-    <div class="portfolio-panel-header">
-
-        <div>
-
-            <span class="panel-label">
-                EDUCATION
+            <span class="section-index">
+                01
             </span>
 
-            <h3>
-                Edukasi
-            </h3>
+            <div>
 
-            <p>
-                Riwayat pendidikan dan tempat
-                saya belajar.
-            </p>
-
-        </div>
-
-
-        <div class="panel-status">
-
-            <span></span>
-
-            Continuous Learning
-
-        </div>
-
-    </div>
-
-
-    <div class="education-grid">
-
-
-        <!-- =================================
-             SMK
-        ================================== -->
-
-        <article
-            class="education-card stagger-item"
-            data-certificate="assets/images/ijazah-smk.jpg"
-            data-certificate-title="SMK Negeri Matesih"
-        >
-
-            <div class="education-icon">
-                🎓
-            </div>
-
-
-            <div class="education-content">
-
-                <span class="education-type">
-                    Sekolah Menengah Kejuruan
-                </span>
-
-
-                <h4>
-                    SMK Negeri Matesih
-                </h4>
-
-
-                <p>
-                    Desain Komunikasi Visual
+                <p class="section-kicker">
+                    INTRODUCTION
                 </p>
 
+                <h2 class="section-title">
+                    About
+                </h2>
 
-                <span class="education-year">
-                    2024 - Sekarang
-                </span>
+            </div>
+
+        </div>
+
+
+        <div class="about-grid">
+
+            <div class="about-copy">
+
+                <p class="about-lead">
+                    I am a visual creative focused on
+                    turning ideas into meaningful visuals.
+                </p>
+
+                <p class="about-text">
+                    My interests move between photography,
+                    graphic design, visual storytelling,
+                    and digital media. I enjoy exploring
+                    different visual approaches and learning
+                    through every project I create.
+                </p>
+
+                <a
+                    href="mailto:oktafinooo@gmail.com"
+                    class="text-link"
+                >
+                    LET'S CONNECT ↗
+                </a>
 
             </div>
 
 
-            <span class="education-arrow">
-                →
-            </span>
+            <div class="about-details">
 
-        </article>
+                <div class="detail-item">
 
+                    <span>
+                        LANGUAGE
+                    </span>
 
-        <!-- =================================
-             SMP
-        ================================== -->
-
-        <article
-            class="education-card stagger-item"
-            data-certificate="assets/images/ijazah-smp.jpg"
-            data-certificate-title="SMP Negeri 1 Ngargoyoso"
-        >
-
-            <div class="education-icon">
-                🎓
-            </div>
-
-
-            <div class="education-content">
-
-                <span class="education-type">
-                    Sekolah Menengah Pertama
-                </span>
-
-
-                <h4>
-                    SMP Negeri 1 Ngargoyoso
-                </h4>
-
-
-                <span class="education-year">
-                    2021 - 2024
-                </span>
-
-            </div>
-
-
-            <span class="education-arrow">
-                →
-            </span>
-
-        </article>
-
-
-        <!-- =================================
-             SD
-        ================================== -->
-
-        <article
-            class="education-card stagger-item"
-            data-certificate="assets/images/ijazah-sd.jpg"
-            data-certificate-title="SD Negeri 03 Gumeng"
-        >
-
-            <div class="education-icon">
-                🎓
-            </div>
-
-
-            <div class="education-content">
-
-                <span class="education-type">
-                    Sekolah Dasar
-                </span>
-
-
-                <h4>
-                    SD Negeri 03 Gumeng
-                </h4>
-
-
-                <span class="education-year">
-                    2015 - 2021
-                </span>
-
-            </div>
-
-
-            <span class="education-arrow">
-                →
-            </span>
-
-        </article>
-
-
-    </div>
-
-</div>
-
-
-            <!-- =====================================
-                 TECH STACK
-            ====================================== -->
-
-            <div
-                class="portfolio-panel"
-                id="techstack"
-            >
-
-                <div class="portfolio-panel-header">
-
-                    <div>
-
-                        <span class="panel-label">
-                            TECHNOLOGY
-                        </span>
-
-                        <h3>
-                            Tech Stack
-                        </h3>
-
-                        <p>
-                            Teknologi yang saya gunakan
-                            dalam membuat project digital.
-                        </p>
-
-                    </div>
+                    <strong>
+                        INDONESIA / ENGLISH
+                    </strong>
 
                 </div>
 
 
-                <div class="tech-grid">
+                <div class="detail-item">
+
+                    <span>
+                        FOCUS
+                    </span>
+
+                    <strong>
+                        VISUAL CREATIVE
+                    </strong>
+
+                </div>
 
 
-                    <div class="tech-card stagger-item">
+                <div class="detail-item">
 
-                        <div class="tech-image">
+                    <span>
+                        FIELD
+                    </span>
 
-                            <img
-                                src="assets/icons/techstack/html.png"
-                                alt="HTML"
-                                loading="lazy"
-                                decoding="async"
-                            >
+                    <strong>
+                        DESAIN KOMUNIKASI VISUAL
+                    </strong>
 
-                        </div>
-
-                        <h4>
-                            HTML
-                        </h4>
-
-                        <span>
-                            Structure
-                        </span>
-
-                    </div>
+                </div>
 
 
-                    <div class="tech-card stagger-item">
+                <div class="detail-item">
 
-                        <div class="tech-image">
+                    <span>
+                        TOOLS
+                    </span>
 
-                            <img
-                                src="assets/icons/techstack/css.png"
-                                alt="CSS"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <h4>
-                            CSS
-                        </h4>
-
-                        <span>
-                            Styling
-                        </span>
-
-                    </div>
-
-
-                    <div class="tech-card stagger-item">
-
-                        <div class="tech-image">
-
-                            <img
-                                src="assets/icons/techstack/javascript.png"
-                                alt="JavaScript"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <h4>
-                            JavaScript
-                        </h4>
-
-                        <span>
-                            Interaction
-                        </span>
-
-                    </div>
-
-
-                    <div class="tech-card stagger-item">
-
-                        <div class="tech-image">
-
-                            <img
-                                src="assets/icons/techstack/github.png"
-                                alt="GitHub"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <h4>
-                            GitHub
-                        </h4>
-
-                        <span>
-                            Version Control
-                        </span>
-
-                    </div>
+                    <strong>
+                        PS / Corel / LR / VSC / CANVA
+                    </strong>
 
                 </div>
 
             </div>
-
-
-            <!-- =====================================
-                 APPLICATIONS
-            ====================================== -->
-
-            <div
-                class="portfolio-panel"
-                id="applications"
-            >
-
-                <div class="portfolio-panel-header">
-
-                    <div>
-
-                        <span class="panel-label">
-                            CREATIVE TOOLS
-                        </span>
-
-                        <h3>
-                            Application
-                        </h3>
-
-                        <p>
-                            Aplikasi yang saya gunakan
-                            untuk membuat karya visual
-                            dan digital.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="application-grid">
-
-
-                    <div class="application-card stagger-item">
-
-                        <div class="application-image">
-
-                            <img
-                                src="assets/icons/applications/lightroom.png"
-                                alt="Adobe Lightroom"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <div class="application-info">
-
-                            <h4>
-                                Lightroom
-                            </h4>
-
-                            <span>
-                                Photo Editing
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-card stagger-item">
-
-                        <div class="application-image">
-
-                            <img
-                                src="assets/icons/applications/corel.png"
-                                alt="CorelDraw"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <div class="application-info">
-
-                            <h4>
-                                CorelDraw
-                            </h4>
-
-                            <span>
-                                Graphic Design
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-card stagger-item">
-
-                        <div class="application-image">
-
-                            <img
-                                src="assets/icons/applications/premiere.png"
-                                alt="Adobe Premiere Pro"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <div class="application-info">
-
-                            <h4>
-                                Premiere Pro
-                            </h4>
-
-                            <span>
-                                Video Editing
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-card stagger-item">
-
-                        <div class="application-image">
-
-                            <img
-                                src="assets/icons/applications/canva.png"
-                                alt="Canva"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-                        <div class="application-info">
-
-                            <h4>
-                                Canva
-                            </h4>
-
-                            <span>
-                                Visual Design
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
 
         </div>
 
@@ -1401,591 +374,349 @@ class="loader">
 </section>
 
 
-        <!-- =================================================
-             04 / MEMORY
-        ================================================== -->
+<!-- =====================================================
+     WORKS CTA
+===================================================== -->
 
-        <section
-            id="memory"
-            class="memory-section section"
-        >
+<section class="works-cta">
 
-            <div class="section-container">
+    <div class="section-container">
+
+        <div class="works-cta-inner">
+
+            <p class="section-kicker">
+                SELECTED CREATIVE WORKS
+            </p>
+
+            <h2>
+                SEE WHAT<br>
+                I'VE <span>MADE.</span>
+            </h2>
+
+            <p>
+                Photography, design, video, and
+                other visual experiments are collected
+                in my dedicated works website.
+            </p>
+
+            <a
+                href="https://your-works-website.vercel.app"
+                class="button button-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                OPEN WORKS ↗
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-                <!-- Header -->
+<!-- =====================================================
+     EDUCATION
+===================================================== -->
 
-                <div class="section-header reveal">
+<section class="section education" id="education">
 
-                    <div class="section-index">
-                        04 / MEMORY
-                    </div>
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <span class="section-index">
+                02
+            </span>
+
+            <div>
+
+                <p class="section-kicker">
+                    BACKGROUND
+                </p>
+
+                <h2 class="section-title">
+                    Education
+                </h2>
+
+            </div>
+
+        </div>
 
 
-                    <h2 class="section-title">
-
-                        MY
-
-                        <span>
-                            MEMORY
-                        </span>
-
-                    </h2>
+        <div class="education-timeline">
 
 
-                    <p class="section-description">
+            <!-- EDUCATION 01 -->
 
-                        Personal moments, activities,
-                        experiences, and memories
-                        throughout my journey.
+            <article class="education-item">
 
+                <div class="education-year">
+                    2015 - 2021
+                </div>
+
+                <div class="education-marker">
+                    <span></span>
+                </div>
+
+                <div class="education-content">
+
+                    <p class="education-type">
+                        ELEMENTARY SCHOOL
+                    </p>
+
+                    <h3>
+                        SD
+                    </h3>
+
+                    <p>
+                        Pendidikan pertama
+                        sebelum melanjutkan pendidikan
+                        ke SMP Negeri 1 Ngargoyoso
                     </p>
 
                 </div>
 
+            </article>
 
 
-                <!-- Memory Grid -->
+            <!-- EDUCATION 02 -->
 
-                <div class="memory-grid">
+            <article class="education-item">
 
+                <div class="education-year">
+                    2021 - 2024
+                </div>
 
-                    <!-- Memory 01 -->
+                <div class="education-marker">
+                    <span></span>
+                </div>
 
-                    <article class="memory-card stagger-item">
+                <div class="education-content">
 
-                        <div class="memory-image">
+                    <p class="education-type">
+                        JUNIOR HIGH SCHOOL
+                    </p>
 
-                            <img
-                                src="assets/images/memory/memory-01.jpg"
-                                alt="Memory 01"
-                                loading="lazy"
-                                decoding="async"
-                            >
+                    <h3>
+                        SMP Negeri 1 Ngargoyoso
+                    </h3>
 
-                        </div>
-
-
-                        <div class="memory-info">
-
-                            <span>
-                                MEMORY / 01
-                            </span>
-
-                            <h3>
-                                Your Moment
-                            </h3>
-
-                            <p>
-                                Add your personal activity here.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-
-                    <!-- Memory 02 -->
-
-                    <article class="memory-card stagger-item">
-
-                        <div class="memory-image">
-
-                            <img
-                                src="assets/images/memory/memory-02.jpg"
-                                alt="Memory 02"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-
-                        <div class="memory-info">
-
-                            <span>
-                                MEMORY / 02
-                            </span>
-
-                            <h3>
-                                Your Activity
-                            </h3>
-
-                            <p>
-                                Add your personal activity here.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-
-                    <!-- Memory 03 -->
-
-                    <article class="memory-card stagger-item">
-
-                        <div class="memory-image">
-
-                            <img
-                                src="assets/images/memory/memory-03.jpg"
-                                alt="Memory 03"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-
-                        <div class="memory-info">
-
-                            <span>
-                                MEMORY / 03
-                            </span>
-
-                            <h3>
-                                Your Story
-                            </h3>
-
-                            <p>
-                                Add your personal activity here.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-
-                    <!-- Memory 04 -->
-
-                    <article class="memory-card stagger-item">
-
-                        <div class="memory-image">
-
-                            <img
-                                src="assets/images/memory/memory-04.jpg"
-                                alt="Memory 04"
-                                loading="lazy"
-                                decoding="async"
-                            >
-
-                        </div>
-
-
-                        <div class="memory-info">
-
-                            <span>
-                                MEMORY / 04
-                            </span>
-
-                            <h3>
-                                Your Journey
-                            </h3>
-
-                            <p>
-                                Add your personal activity here.
-                            </p>
-
-                        </div>
-
-                    </article>
-
+                    <p>
+                        Pendidikan menengah pertama
+                        sebelum melanjutkan pendidikan
+                        ke bidang desain komunikasi visual.
+                    </p>
 
                 </div>
 
-
-            </div>
-
-        </section>
+            </article>
 
 
+            <!-- EDUCATION 03 -->
+
+            <article class="education-item current">
+
+                <div class="education-year">
+                    2024 - NOW
+                </div>
+
+                <div class="education-marker">
+                    <span></span>
+                </div>
+
+                <div class="education-content">
+
+                    <p class="education-type">
+                        CURRENT
+                    </p>
+
+                    <h3>
+                        SMK Negeri Matesih
+                    </h3>
+
+                    <p>
+                        Desain Komunikasi Visual.
+                        Mengembangkan kemampuan dalam
+                        desain, fotografi, dan media visual.
+                    </p>
+
+                </div>
+
+            </article>
 
 
+        </div>
 
- <!-- =====================================================
-     CONTACT
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MEMORY
 ===================================================== -->
 
-<section class="contact-section" id="contact">
+<section class="section memory" id="memory">
 
-    <div class="contact-container">
+    <div class="section-container">
 
-        <!-- HEADER -->
+        <div class="section-heading">
 
-        <div class="contact-heading reveal">
-
-            <span class="section-label">
-                GET IN TOUCH
+            <span class="section-index">
+                03
             </span>
 
-            <h2>
-                Let's <span>Connect.</span>
-            </h2>
+            <div>
 
-            <p>
-                Have a project, idea, or just want to say hello?
-                Choose the way you want to reach me.
-            </p>
+                <p class="section-kicker">
+                    PERSONAL ARCHIVE
+                </p>
+
+                <h2 class="section-title">
+                    Memory
+                </h2>
+
+            </div>
 
         </div>
 
 
-        <!-- =================================================
-             CONTACT BOXES
-        ================================================= -->
+        <div class="memory-grid">
 
-        <div class="contact-boxes">
+            <figure class="memory-card memory-large">
 
-
-            <!-- =================================================
-                 SEND EMAIL
-            ================================================= -->
-
-            <div class="contact-box email-box stagger-item">
-
-                <div class="contact-box-header">
-
-                    <div class="contact-box-icon">
-                        <img
-                            src="assets/icons/contact/email.svg"
-                            alt="Email"
-                        >
-                    </div>
-
-                    <div>
-
-                        <span class="contact-box-label">
-                            DIRECT MESSAGE
-                        </span>
-
-                        <h3>
-                            Send Me an Email
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <form
-                    class="contact-form"
-                    id="contactForm"
+                <img
+                    src="assets/images/memory/memory-01.jpg"
+                    alt="Creative memory"
+                    loading="lazy"
                 >
 
-                    <!-- NAME -->
+                <figcaption>
+                    01 / MOMENT
+                </figcaption>
 
-                    <div class="form-group">
-
-                        <label for="name">
-                            Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Your name"
-                            autocomplete="name"
-                            required
-                        >
-
-                    </div>
+            </figure>
 
 
-                    <!-- EMAIL -->
+            <figure class="memory-card">
 
-                    <div class="form-group">
+                <img
+                    src="assets/images/memory/memory-02.jpg"
+                    alt="Creative memory"
+                    loading="lazy"
+                >
 
-                        <label for="email">
-                            Email
-                        </label>
+                <figcaption>
+                    02 / PROCESS
+                </figcaption>
 
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="you@example.com"
-                            autocomplete="email"
-                            required
-                        >
-
-                    </div>
+            </figure>
 
 
-                    <!-- SUBJECT -->
+            <figure class="memory-card">
 
-                    <div class="form-group">
+                <img
+                    src="assets/images/memory/memory-03.jpg"
+                    alt="Creative memory"
+                    loading="lazy"
+                >
 
-                        <label for="subject">
-                            Subject
-                        </label>
+                <figcaption>
+                    03 / EXPERIENCE
+                </figcaption>
 
-                        <input
-                            type="text"
-                            id="subject"
-                            name="subject"
-                            placeholder="What's this about?"
-                            required
-                        >
+            </figure>
 
-                    </div>
+        </div>
 
+    </div>
 
-                    <!-- MESSAGE -->
-
-                    <div class="form-group">
-
-                        <label for="message">
-                            Message
-                        </label>
-
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="6"
-                            placeholder="Write your message..."
-                            required
-                        ></textarea>
-
-                    </div>
+</section>
 
 
-                    <!-- SUBMIT -->
+<!-- =====================================================
+     CONTACT
+===================================================== -->
 
-                    <div class="form-submit">
+<section class="section contact" id="contact">
 
-                        <button
-                            type="submit"
-                            class="contact-submit"
-                            id="contactSubmit"
-                        >
+    <div class="section-container">
 
-                            <span class="submit-text">
-                                Send Message
-                            </span>
+        <div class="contact-layout">
 
-                            <span class="submit-arrow">
-                                ↗
-                            </span>
+            <div>
 
-                        </button>
+                <p class="section-kicker">
+                    GET IN TOUCH
+                </p>
 
-                    </div>
-
-
-                    <!-- STATUS -->
-
-                    <div
-                        class="form-status"
-                        id="formStatus"
-                        aria-live="polite"
-                    ></div>
-
-                </form>
+                <h2 class="contact-title">
+                    LET'S MAKE<br>
+                    SOMETHING <span>GOOD</span>
+                </h2>
 
             </div>
 
 
-
-            <!-- =================================================
-                 OTHER CONTACTS
-            ================================================= -->
-
-            <div class="contact-box social-box stagger-item">
-
-                <div class="contact-box-header">
-
-                    <div class="contact-box-icon">
-                        <img
-                            src="assets/icons/contact/contact.svg"
-                            alt="Contact"
-                        >
-                    </div>
-
-                    <div>
-
-                        <span class="contact-box-label">
-                            FIND ME
-                        </span>
-
-                        <h3>
-                            Other Contacts
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div class="social-contact-list">
-
-
-                    <!-- INSTAGRAM -->
-
-                    <a
-                        href="https://instagram.com/finn_caldwen"
-                        class="social-contact stagger-item"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="social-contact-icon">
-
-                            <img
-                                src="assets/icons/contact/instagram.svg"
-                                alt="Instagram"
-                            >
-
-                        </div>
-
-                        <div class="social-contact-info">
-
-                            <span>
-                                Instagram
-                            </span>
-
-                            <strong>
-                                I`m Finn
-                            </strong>
-
-                        </div>
-
-                        <span class="social-contact-arrow">
-                            ↗
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- TIKTOK -->
-
-                    <a
-                        href="https://www.tiktok.com/@kingdeonix"
-                        class="social-contact stagger-item"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="social-contact-icon">
-
-                            <img
-                                src="assets/icons/contact/tiktok.svg"
-                                alt="TikTok"
-                            >
-
-                        </div>
-
-                        <div class="social-contact-info">
-
-                            <span>
-                                TikTok
-                            </span>
-
-                            <strong>
-                                𝓕𝓲𝓷𝓷 མྱ་ངན
-                            </strong>
-
-                        </div>
-
-                        <span class="social-contact-arrow">
-                            ↗
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- GITHUB -->
-
-                    <a
-                        href="https://github.com/Finnn4951"
-                        class="social-contact stagger-item"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="social-contact-icon">
-
-                            <img
-                                src="assets/icons/contact/github.svg"
-                                alt="GitHub"
-                            >
-
-                        </div>
-
-                        <div class="social-contact-info">
-
-                            <span>
-                                GitHub
-                            </span>
-
-                            <strong>
-                                Finnn4951
-                            </strong>
-
-                        </div>
-
-                        <span class="social-contact-arrow">
-                            ↗
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- WHATSAPP -->
-
-                    <a
-                        href="https://wa.me/6282119102292?text=haiii"
-                        class="social-contact stagger-item"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="social-contact-icon">
-
-                            <img
-                                src="assets/icons/contact/whatsapp.svg"
-                                alt="WhatsApp"
-                            >
-
-                        </div>
-
-                        <div class="social-contact-info">
-
-                            <span>
-                                WhatsApp
-                            </span>
-
-                            <strong>
-                                Let's Chat
-                            </strong>
-
-                        </div>
-
-                        <span class="social-contact-arrow">
-                            ↗
-                        </span>
-
-                    </a>
-
-                </div>
-
-
-                <!-- SMALL DESCRIPTION -->
-
-                <div class="contact-box-footer">
-
-                    <span class="contact-status-dot"></span>
+            <div class="contact-links">
+
+                <a
+                    href="mailto:oktafinooo@gmail.com"
+                    class="contact-link"
+                >
 
                     <span>
-                        Usually available for creative projects
+                        EMAIL
                     </span>
 
-                </div>
+                    <strong>
+                        oktafinooo@gmail.com
+                    </strong>
+
+                    <b>↗</b>
+
+                </a>
+
+
+                <a
+                    href="https://instagram.com/finn_caldwen"
+                    class="contact-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <span>
+                        INSTAGRAM
+                    </span>
+
+                    <strong>
+                        I`m Finn
+                    </strong>
+
+                    <b>↗</b>
+
+                </a>
+
+
+                <a
+                    href="https://tiktok.com/@kingdeonix"
+                    class="contact-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <span>
+                        TIKTOK
+                    </span>
+
+                    <strong>
+                        𝓕𝓲𝓷𝓷 མྱ་ངན།
+                    </strong>
+
+                    <b>↗</b>
+
+                </a>
 
             </div>
 
@@ -1994,244 +725,41 @@ class="loader">
     </div>
 
 </section>
+
+
 </main>
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
+<footer class="footer">
 
-    <footer class="site-footer">
+    <div class="footer-container">
 
-        <div class="footer-container">
+        <div class="footer-brand">
 
-
-            <div class="footer-logo">
-
-                FINN<span>.</span>
-
-            </div>
-
-
-
-            <div class="footer-copy">
-
-                © 2026 Finn
-                ALL RIGHTS RESERVED.
-
-            </div>
-
-
-
-            <a
-                href="#home"
-                class="back-top"
-            >
-
-                BACK TO TOP ↑
-
-            </a>
-
+            FINN
 
         </div>
 
-    </footer>
+
+        <p>
+            © 2026 Finn
+        </p>
 
 
-
-
-
-    <!-- =====================================================
-         LIGHTBOX
-    ====================================================== -->
-
-    <div
-        class="lightbox"
-        id="lightbox"
-        aria-hidden="true"
-    >
-
-
-        <button
-            class="lightbox-close"
-            id="lightboxClose"
-            aria-label="Close project"
-        >
-            ×
-        </button>
-
-
-
-        <div class="lightbox-content">
-
-
-            <div class="lightbox-image">
-
-                <span>
-                    PROJECT PREVIEW
-                </span>
-
-            </div>
-
-
-
-            <div class="lightbox-info">
-
-
-                <span class="lightbox-category">
-                    CATEGORY
-                </span>
-
-
-                <h3 class="lightbox-title">
-                    Project Title
-                </h3>
-
-
-                <p class="lightbox-description">
-                    Project description will appear here.
-                </p>
-
-
-            </div>
-
-
-        </div>
-
+        <a href="#home">
+            BACK TO TOP ↑
+        </a>
 
     </div>
 
+</footer>
 
 
+<script src="js/script.js" defer></script>
 
-
-    <!-- =====================================================
-         RIGHT SIDE SECTION NAVIGATION
-    ====================================================== -->
-
-    <div class="section-navigation">
-
-
-        <a
-            href="#home"
-            class="section-dot active"
-        >
-            <span>
-                01
-            </span>
-        </a>
-
-
-
-        <a
-            href="#about"
-            class="section-dot"
-        >
-            <span>
-                02
-            </span>
-        </a>
-
-
-
-        <a
-            href="#portfolio"
-            class="section-dot"
-        >
-            <span>
-                03
-            </span>
-        </a>
-
-
-
-        <a
-            href="#memory"
-            class="section-dot"
-        >
-            <span>
-                04
-            </span>
-        </a>
-
-
-
-        <a
-            href="#contact"
-            class="section-dot"
-        >
-            <span>
-                05
-            </span>
-        </a>
-
-
-    </div>
-
-
-
-
-
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
-
-    <script src="js/script.js"></script>
-
-
-    <!-- =====================================
-     CERTIFICATE MODAL
-====================================== -->
-
-<div
-    class="certificate-modal"
-    id="certificateModal"
-    aria-hidden="true"
->
-
-    <div class="certificate-overlay"></div>
-
-
-    <div class="certificate-content">
-
-        <button
-            class="certificate-close"
-            id="certificateClose"
-            type="button"
-            aria-label="Close certificate"
-        >
-            ×
-        </button>
-
-
-        <div class="certificate-header">
-
-            <span>
-                EDUCATION
-            </span>
-
-            <h3 id="certificateTitle">
-                Certificate
-            </h3>
-
-        </div>
-
-
-        <div class="certificate-image-wrapper">
-
-            <img
-                id="certificateImage"
-                class="certificate-image"
-                src=""
-                alt="Certificate"
-            >
-
-        </div>
-
-    </div>
-
-</div>
 </body>
-
 </html>

@@ -1,969 +1,449 @@
 /* =========================================================
-   Finn — VISUAL CREATIVE PORTFOLIO
-   CLEAN / FINAL JAVASCRIPT
+   PORTFOLIO 2.0
+   FINN — INTERACTION SYSTEM
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
-       01. CAMERA PAGE LOADER
+       ELEMENTS
     ===================================================== */
 
     const loader = document.getElementById("camera-loader");
-    const loaderNumber = loader?.querySelector(".loader-number");
-    const focusText = loader?.querySelector(".focus-text span");
+    const loaderNumber = document.querySelector(".loader-number");
 
-    if (loader) {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-        let progress = 0;
-        let finished = false;
+    const sections = document.querySelectorAll("main section[id]");
 
-        const finishLoader = () => {
 
-            if (finished) return;
+    /* =====================================================
+       LOADER
+    ===================================================== */
 
-            finished = true;
+    let progress = 0;
+
+    const loaderInterval = setInterval(() => {
+
+        progress += Math.floor(
+            Math.random() * 8
+        ) + 3;
+
+        if (progress >= 100) {
             progress = 100;
+            clearInterval(loaderInterval);
 
             if (loaderNumber) {
-                loaderNumber.textContent = "100";
-            }
-
-            if (focusText) {
-                focusText.textContent = "LOCKED";
+                loaderNumber.textContent = "100%";
             }
 
             setTimeout(() => {
 
-                loader.classList.add("shutter-fired");
+                loader?.classList.add("loaded");
 
-                setTimeout(() => {
-
-                    loader.classList.add("hidden");
-
-                    setTimeout(() => {
-                        loader.remove();
-                    }, 900);
-
-                }, 850);
-
-            }, 450);
-        };
-
-
-        const loadingInterval = setInterval(() => {
-
-            if (finished) {
-                clearInterval(loadingInterval);
-                return;
-            }
-
-            let increment;
-
-            if (progress < 30) {
-
-                increment =
-                    Math.floor(Math.random() * 5) + 2;
-
-            } else if (progress < 75) {
-
-                increment =
-                    Math.floor(Math.random() * 9) + 3;
-
-            } else {
-
-                increment =
-                    Math.floor(Math.random() * 4) + 1;
-
-            }
-
-            progress =
-                Math.min(
-                    progress + increment,
-                    100
+                document.body.classList.remove(
+                    "no-scroll"
                 );
 
+            }, 350);
 
-            if (loaderNumber) {
+            return;
+        }
 
-                loaderNumber.textContent =
-                    String(progress).padStart(2, "0");
+        if (loaderNumber) {
+            loaderNumber.textContent =
+                `${progress}%`;
+        }
 
-            }
-
-
-            if (progress >= 100) {
-
-                clearInterval(loadingInterval);
-
-                finishLoader();
-
-            }
-
-        }, 90);
+    }, 70);
 
 
-        /* Safety fallback: never leave the page blocked. */
-
-        setTimeout(
-            finishLoader,
-            5000
-        );
-    }
-
+    document.body.classList.add("no-scroll");
 
 
     /* =====================================================
-       02. ELEMENT REFERENCES
+       MOBILE NAVIGATION
     ===================================================== */
 
-    const navMenu =
-        document.querySelector(".nav-menu");
+    function closeMenu() {
 
-    const menuToggle =
-        document.querySelector(".menu-toggle");
+        navMenu?.classList.remove("active");
 
+        menuToggle?.classList.remove("active");
 
-    const navLinks =
-        document.querySelectorAll(
-            '.nav-menu a[href^="#"]'
-        );
-
-
-    const sections =
-        Array.from(
-            document.querySelectorAll(
-                "main > section[id]"
-            )
-        );
-
-
-    const portfolioTabs =
-        document.querySelectorAll(
-            ".portfolio-tab"
-        );
-
-
-    const portfolioPanels =
-        document.querySelectorAll(
-            ".portfolio-panel"
-        );
-
-
-
-    /* =====================================================
-       03. MOBILE NAVIGATION
-    ===================================================== */
-
-    const closeMobileMenu = () => {
-
-        if (navMenu) {
-
-            navMenu.classList.remove(
-                "active"
-            );
-
-        }
-
-
-        if (menuToggle) {
-
-            menuToggle.classList.remove(
-                "active"
-            );
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        }
-
-    };
-
-
-    if (menuToggle && navMenu) {
-
-        menuToggle.addEventListener(
-            "click",
-            () => {
-
-                const isOpen =
-                    navMenu.classList.toggle(
-                        "active"
-                    );
-
-
-                menuToggle.classList.toggle(
-                    "active",
-                    isOpen
-                );
-
-
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    String(isOpen)
-                );
-
-            }
+        menuToggle?.setAttribute(
+            "aria-expanded",
+            "false"
         );
 
     }
+
+
+    menuToggle?.addEventListener("click", () => {
+
+        const isOpen =
+            navMenu?.classList.toggle("active");
+
+        menuToggle.classList.toggle(
+            "active",
+            isOpen
+        );
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    });
 
 
     navLinks.forEach(link => {
 
-        link.addEventListener(
-            "click",
-            closeMobileMenu
-        );
+        link.addEventListener("click", () => {
+            closeMenu();
+        });
 
     });
 
 
+    /* Close menu when clicking outside */
 
-    /* =====================================================
-       04. HERO TYPEWRITER
-    ===================================================== */
-
-    const typewriter =
-        document.getElementById(
-            "typewriter"
-        );
-
-
-    const roles = [
-        "Photography",
-        "Graphic Design",
-        "Programming",
-        "Digital Media"
-    ];
-
-
-    let roleIndex = 0;
-    let characterIndex = 0;
-    let deleting = false;
-    let typewriterTimer = null;
-
-
-    const typingSpeed = 90;
-    const deletingSpeed = 55;
-    const pauseAfterTyping = 1800;
-    const pauseAfterDeleting = 400;
-
-
-    function typeRole() {
+    document.addEventListener("click", event => {
 
         if (
-            !typewriter ||
-            document.hidden
+            navMenu &&
+            menuToggle &&
+            !navMenu.contains(event.target) &&
+            !menuToggle.contains(event.target)
         ) {
-
-            typewriterTimer =
-                setTimeout(
-                    typeRole,
-                    1000
-                );
-
-            return;
+            closeMenu();
         }
-
-
-        const currentRole =
-            roles[roleIndex];
-
-
-        /* ================================
-           TYPING
-        ================================= */
-
-        if (!deleting) {
-
-            characterIndex++;
-
-
-            typewriter.textContent =
-                currentRole.substring(
-                    0,
-                    characterIndex
-                );
-
-
-            if (
-                characterIndex >=
-                currentRole.length
-            ) {
-
-                deleting = true;
-
-
-                typewriterTimer =
-                    setTimeout(
-                        typeRole,
-                        pauseAfterTyping
-                    );
-
-
-                return;
-            }
-
-
-            typewriterTimer =
-                setTimeout(
-                    typeRole,
-                    typingSpeed
-                );
-
-
-            return;
-        }
-
-
-
-        /* ================================
-           DELETING
-        ================================= */
-
-        characterIndex--;
-
-
-        typewriter.textContent =
-            currentRole.substring(
-                0,
-                characterIndex
-            );
-
-
-        if (characterIndex <= 0) {
-
-            characterIndex = 0;
-
-            deleting = false;
-
-
-            roleIndex =
-                (roleIndex + 1) %
-                roles.length;
-
-
-            typewriterTimer =
-                setTimeout(
-                    typeRole,
-                    pauseAfterDeleting
-                );
-
-
-            return;
-        }
-
-
-        typewriterTimer =
-            setTimeout(
-                typeRole,
-                deletingSpeed
-            );
-
-    }
-
-
-    if (typewriter) {
-
-        typeRole();
-
-
-        document.addEventListener(
-            "visibilitychange",
-            () => {
-
-                if (
-                    !document.hidden &&
-                    !typewriterTimer
-                ) {
-
-                    typeRole();
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       05. PORTFOLIO TABS
-    ===================================================== */
-
-    const activatePortfolioPanel =
-        target => {
-
-            if (!target) return;
-
-
-            const targetPanel =
-                document.getElementById(
-                    target
-                );
-
-
-            if (!targetPanel) return;
-
-
-
-            /* Active tab */
-
-            portfolioTabs.forEach(tab => {
-
-                tab.classList.toggle(
-                    "active",
-                    tab.dataset.target === target
-                );
-
-            });
-
-
-
-            /* Active panel */
-
-            portfolioPanels.forEach(panel => {
-
-                panel.classList.toggle(
-                    "active",
-                    panel === targetPanel
-                );
-
-            });
-
-
-
-            /* Restart panel animation */
-
-            targetPanel.style.animation =
-                "none";
-
-            void targetPanel.offsetWidth;
-
-            targetPanel.style.animation =
-                "";
-
-
-
-            /* Restart stagger items */
-
-            const staggerItems =
-                targetPanel.querySelectorAll(
-                    ".stagger-item"
-                );
-
-
-            staggerItems.forEach(item => {
-
-                item.classList.remove(
-                    "show"
-                );
-
-            });
-
-
-            requestAnimationFrame(() => {
-
-                staggerItems.forEach(
-                    (item, index) => {
-
-                        setTimeout(() => {
-
-                            item.classList.add(
-                                "show"
-                            );
-
-                        }, index * 80);
-
-                    }
-                );
-
-            });
-
-        };
-
-
-    portfolioTabs.forEach(tab => {
-
-        tab.addEventListener(
-            "click",
-            () => {
-
-                activatePortfolioPanel(
-                    tab.dataset.target
-                );
-
-            }
-        );
 
     });
 
 
-
     /* =====================================================
-       06. WORK FILTER
+       ESCAPE KEY
     ===================================================== */
 
-    const filterButtons =
-        document.querySelectorAll(
-            ".filter-btn"
-        );
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+            closeMenu();
+        }
+
+    });
 
 
-    const workCards =
-        document.querySelectorAll(
-            ".work-card"
-        );
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    const revealElements = document.querySelectorAll(
+        ".section-heading, " +
+        ".about-copy, " +
+        ".about-details, " +
+        ".works-cta-inner, " +
+        ".education-item, " +
+        ".memory-card, " +
+        ".contact-title, " +
+        ".contact-link"
+    );
 
 
-    filterButtons.forEach(button => {
+    revealElements.forEach(element => {
 
-        button.addEventListener(
-            "click",
-            () => {
+        element.style.opacity = "0";
 
-                const filter =
-                    button.dataset.filter ||
-                    button.dataset.category ||
-                    "all";
+        element.style.transform =
+            "translateY(25px)";
+
+        element.style.transition =
+            "opacity .7s ease, " +
+            "transform .7s ease";
+
+    });
 
 
-                /* Active button */
+    const revealObserver =
+        new IntersectionObserver(
+            entries => {
 
-                filterButtons.forEach(btn => {
+                entries.forEach(entry => {
 
-                    btn.classList.toggle(
-                        "active",
-                        btn === button
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    entry.target.style.opacity = "1";
+
+                    entry.target.style.transform =
+                        "translateY(0)";
+
+                    revealObserver.unobserve(
+                        entry.target
                     );
 
                 });
 
-
-                /* Filter cards */
-
-                workCards.forEach(card => {
-
-                    const category =
-                        card.dataset.category ||
-                        "";
-
-
-                    const shouldShow =
-                        filter === "all" ||
-                        category === filter;
-
-
-                    if (shouldShow) {
-
-                        card.style.display =
-                            "";
-
-
-                        requestAnimationFrame(
-                            () => {
-
-                                card.style.opacity =
-                                    "1";
-
-                                card.style.transform =
-                                    "translateY(0)";
-
-                            }
-                        );
-
-                    } else {
-
-                        card.style.opacity =
-                            "0";
-
-                        card.style.transform =
-                            "translateY(10px)";
-
-
-                        setTimeout(() => {
-
-                            if (
-                                card.style.opacity ===
-                                "0"
-                            ) {
-
-                                card.style.display =
-                                    "none";
-
-                            }
-
-                        }, 250);
-
-                    }
-
-                });
-
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
             }
         );
 
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
     });
 
 
-
     /* =====================================================
-       07. LIGHTBOX
+       EDUCATION STAGGER
     ===================================================== */
 
-    const lightbox =
-        document.getElementById(
-            "lightbox"
+    const educationItems =
+        document.querySelectorAll(
+            ".education-item"
         );
 
 
-    const lightboxClose =
-        document.getElementById(
-            "lightboxClose"
-        );
-
-
-    const lightboxImage =
-        lightbox?.querySelector(
-            ".lightbox-image"
-        );
-
-
-    const lightboxTitle =
-        lightbox?.querySelector(
-            ".lightbox-title"
-        );
-
-
-    const lightboxCategory =
-        lightbox?.querySelector(
-            ".lightbox-category"
-        );
-
-
-    const lightboxDescription =
-        lightbox?.querySelector(
-            ".lightbox-description"
-        );
-
-
-    const openLightbox =
-        card => {
-
-            if (
-                !lightbox ||
-                !card
-            ) return;
-
-
-            const image =
-                card.querySelector(
-                    "img"
-                );
-
-
-            const title =
-                card.dataset.title ||
-                card.querySelector(
-                    ".work-title"
-                )?.textContent ||
-                "Project";
-
-
-            const category =
-                card.dataset.category ||
-                card.querySelector(
-                    ".work-category"
-                )?.textContent ||
-                "WORK";
-
-
-            const description =
-                card.dataset.description ||
-                "Creative project by Finn";
-
-
-
-            /* Image */
-
-            if (lightboxImage) {
-
-                lightboxImage.innerHTML =
-                    "";
-
-
-                if (image) {
-
-                    const clonedImage =
-                        image.cloneNode(
-                            true
-                        );
-
-
-                    clonedImage.removeAttribute(
-                        "loading"
-                    );
-
-
-                    clonedImage.style.width =
-                        "100%";
-
-                    clonedImage.style.height =
-                        "100%";
-
-                    clonedImage.style.objectFit =
-                        "contain";
-
-
-                    lightboxImage.appendChild(
-                        clonedImage
-                    );
-
-                } else {
-
-                    const placeholder =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    placeholder.textContent =
-                        "PROJECT PREVIEW";
-
-
-                    lightboxImage.appendChild(
-                        placeholder
-                    );
-
-                }
-
-            }
-
-
-
-            /* Text */
-
-            if (lightboxTitle) {
-
-                lightboxTitle.textContent =
-                    title.trim();
-
-            }
-
-
-            if (lightboxCategory) {
-
-                lightboxCategory.textContent =
-                    category
-                        .trim()
-                        .toUpperCase();
-
-            }
-
-
-            if (lightboxDescription) {
-
-                lightboxDescription.textContent =
-                    description.trim();
-
-            }
-
-
-
-            /* Show */
-
-            lightbox.classList.add(
-                "active"
-            );
-
-
-            lightbox.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-
-            document.body.style.overflow =
-                "hidden";
-
-        };
-
-
-
-    const closeLightbox =
-        () => {
-
-            if (!lightbox) return;
-
-
-            lightbox.classList.remove(
-                "active"
-            );
-
-
-            lightbox.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-
-            document.body.style.overflow =
-                "";
-
-        };
-
-
-
-    workCards.forEach(card => {
-
-        card.addEventListener(
-            "click",
-            event => {
-
-                /*
-                 * Allow links/buttons
-                 * inside a card to work normally.
-                 */
-
-                if (
-                    event.target.closest(
-                        "a, button"
-                    ) &&
-                    !event.target.closest(
-                        ".work-card"
-                    )
-                ) {
-
-                    return;
-
-                }
-
-
-                openLightbox(card);
-
-            }
-        );
-
-    });
-
-
-
-    if (lightboxClose) {
-
-        lightboxClose.addEventListener(
-            "click",
-            closeLightbox
-        );
-
-    }
-
-
-    if (lightbox) {
-
-        lightbox.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    lightbox
-                ) {
-
-                    closeLightbox();
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       08. KEYBOARD CONTROLS
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                closeLightbox();
-
-                closeMobileMenu();
-
-            }
+    educationItems.forEach(
+        (item, index) => {
+
+            item.style.transitionDelay =
+                `${index * 120}ms`;
 
         }
     );
 
 
+    /* =====================================================
+       MEMORY IMAGE LOAD
+    ===================================================== */
+
+    const images =
+        document.querySelectorAll("img");
+
+
+    images.forEach(image => {
+
+        image.style.opacity = "0";
+
+        image.style.transition =
+            "opacity .6s ease";
+
+
+        if (image.complete) {
+
+            image.style.opacity = "1";
+
+        } else {
+
+            image.addEventListener(
+                "load",
+                () => {
+                    image.style.opacity = "1";
+                },
+                {
+                    once: true
+                }
+            );
+
+        }
+
+    });
+
 
     /* =====================================================
-       09. SMOOTH SCROLL
+       ACTIVE NAVIGATION
+    ===================================================== */
+
+    const updateActiveNavigation = () => {
+
+        let currentSection = "";
+
+        const scrollPosition =
+            window.scrollY + 180;
+
+
+        sections.forEach(section => {
+
+            const sectionTop =
+                section.offsetTop;
+
+            const sectionHeight =
+                section.offsetHeight;
+
+
+            if (
+                scrollPosition >= sectionTop &&
+                scrollPosition <
+                sectionTop + sectionHeight
+            ) {
+
+                currentSection =
+                    section.id;
+
+            }
+
+        });
+
+
+        navLinks.forEach(link => {
+
+            const href =
+                link.getAttribute("href");
+
+
+            link.classList.toggle(
+                "active",
+                href === `#${currentSection}`
+            );
+
+        });
+
+    };
+
+
+    window.addEventListener(
+        "scroll",
+        updateActiveNavigation,
+        {
+            passive: true
+        }
+    );
+
+
+    updateActiveNavigation();
+
+
+    /* =====================================================
+       HERO PARALLAX
+    ===================================================== */
+
+    const heroImage =
+        document.querySelector(".hero-image");
+
+
+    const supportsHover =
+        window.matchMedia(
+            "(hover: hover)"
+        ).matches;
+
+
+    if (
+        heroImage &&
+        supportsHover
+    ) {
+
+        window.addEventListener(
+            "mousemove",
+            event => {
+
+                const x =
+                    (event.clientX /
+                    window.innerWidth -
+                    0.5) * 8;
+
+                const y =
+                    (event.clientY /
+                    window.innerHeight -
+                    0.5) * 5;
+
+
+                heroImage.style.transform =
+                    `scale(1.03) translate(${x}px, ${y}px)`;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        document.addEventListener(
+            "mouseleave",
+            () => {
+
+                heroImage.style.transform =
+                    "scale(1)";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BACK TO TOP
+    ===================================================== */
+
+    const backToTop =
+        document.querySelector(
+            '.footer a[href="#home"]'
+        );
+
+
+    backToTop?.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+
+    /* =====================================================
+       SMOOTH INTERNAL LINKS
     ===================================================== */
 
     document
-        .querySelectorAll(
-            'a[href^="#"]'
-        )
+        .querySelectorAll('a[href^="#"]')
         .forEach(link => {
 
             link.addEventListener(
                 "click",
                 event => {
 
-                    const targetId =
-                        link.getAttribute(
-                            "href"
-                        );
-
+                    const targetID =
+                        link.getAttribute("href");
 
                     if (
-                        !targetId ||
-                        targetId === "#"
+                        !targetID ||
+                        targetID === "#"
                     ) {
-
                         return;
-
                     }
 
 
                     const target =
                         document.querySelector(
-                            targetId
+                            targetID
                         );
 
 
-                    if (!target) return;
+                    if (!target) {
+                        return;
+                    }
 
 
                     event.preventDefault();
 
 
-
-                    const header =
-                        document.querySelector(
-                            ".site-header"
-                        );
-
-
-                    const offset =
-                        header?.offsetHeight ||
-                        0;
-
+                    const offset = 80;
 
                     const targetPosition =
-                        target
-                            .getBoundingClientRect()
+                        target.getBoundingClientRect()
                             .top +
                         window.scrollY -
                         offset;
@@ -972,10 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.scrollTo({
 
                         top:
-                            Math.max(
-                                targetPosition,
-                                0
-                            ),
+                            targetPosition,
 
                         behavior:
                             "smooth"
@@ -988,1048 +465,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-
     /* =====================================================
-       10. ACTIVE NAVIGATION
-
-       Home → About → Portfolio → Memory → Contact
+       RESIZE
     ===================================================== */
-
-    let activeSection = "";
-
-
-    const updateActiveNavigation =
-        () => {
-
-            if (!sections.length)
-                return;
-
-
-            const header =
-                document.querySelector(
-                    ".site-header"
-                );
-
-
-            const headerOffset =
-                header?.offsetHeight ||
-                0;
-
-
-            /*
-             * The point used to determine
-             * which section is currently active.
-             */
-
-            const point =
-                window.scrollY +
-                headerOffset +
-                window.innerHeight *
-                0.25;
-
-
-            let current =
-                sections[0].id;
-
-
-            sections.forEach(section => {
-
-                if (
-                    point >=
-                    section.offsetTop
-                ) {
-
-                    current =
-                        section.id;
-
-                }
-
-            });
-
-
-
-            /* Bottom-of-page correction */
-
-            const bottomReached =
-                window.innerHeight +
-                window.scrollY >=
-                document.documentElement
-                    .scrollHeight -
-                8;
-
-
-            if (bottomReached) {
-
-                current =
-                    sections[
-                        sections.length - 1
-                    ].id;
-
-            }
-
-
-
-            if (
-                current ===
-                activeSection
-            ) {
-
-                return;
-
-            }
-
-
-            activeSection =
-                current;
-
-
-
-            /* Update navbar */
-
-            navLinks.forEach(link => {
-
-                const target =
-                    link.getAttribute(
-                        "href"
-                    );
-
-
-                link.classList.toggle(
-                    "active",
-                    target ===
-                    `#${current}`
-                );
-
-            });
-
-        };
-
-
-
-    let navigationTicking =
-        false;
-
-
-    const requestNavigationUpdate =
-        () => {
-
-            if (
-                navigationTicking
-            ) {
-
-                return;
-
-            }
-
-
-            navigationTicking =
-                true;
-
-
-            requestAnimationFrame(
-                () => {
-
-                    updateActiveNavigation();
-
-                    navigationTicking =
-                        false;
-
-                }
-            );
-
-        };
-
-
-
-    window.addEventListener(
-        "scroll",
-        requestNavigationUpdate,
-        {
-            passive: true
-        }
-    );
-
 
     window.addEventListener(
         "resize",
-        requestNavigationUpdate,
-        {
-            passive: true
-        }
-    );
-
-
-    updateActiveNavigation();
-
-
-
-    /* =====================================================
-       11. RIGHT SIDE SECTION DOTS
-    ===================================================== */
-
-    const sectionDots =
-        document.querySelectorAll(
-            ".section-dot"
-        );
-
-
-    sectionDots.forEach(dot => {
-
-        dot.addEventListener(
-            "click",
-            event => {
-
-                const target =
-                    dot.dataset.target ||
-                    dot.getAttribute(
-                        "href"
-                    );
-
-
-                if (!target) return;
-
-
-                const targetId =
-                    target.startsWith("#")
-                        ? target
-                        : `#${target}`;
-
-
-                const section =
-                    document.querySelector(
-                        targetId
-                    );
-
-
-                if (!section)
-                    return;
-
-
-                event.preventDefault();
-
-
-                const header =
-                    document.querySelector(
-                        ".site-header"
-                    );
-
-
-                const offset =
-                    header?.offsetHeight ||
-                    0;
-
-
-                const position =
-                    section
-                        .getBoundingClientRect()
-                        .top +
-                    window.scrollY -
-                    offset;
-
-
-                window.scrollTo({
-
-                    top:
-                        Math.max(
-                            position,
-                            0
-                        ),
-
-                    behavior:
-                        "smooth"
-
-                });
-
-            }
-        );
-
-    });
-
-
-
-    const updateSectionDots =
         () => {
 
-            const current =
-                activeSection;
-
-
-            sectionDots.forEach(dot => {
-
-                const target =
-                    dot.dataset.target ||
-                    dot
-                        .getAttribute(
-                            "href"
-                        )
-                        ?.replace(
-                            "#",
-                            ""
-                        );
-
-
-                dot.classList.toggle(
-                    "active",
-                    target ===
-                    current
-                );
-
-            });
-
-        };
-
-
-
-    window.addEventListener(
-        "scroll",
-        updateSectionDots,
-        {
-            passive: true
-        }
-    );
-
-
-    updateSectionDots();
-
-
-
-    /* =====================================================
-       12. CURSOR GLOW
-    ===================================================== */
-
-    const cursorGlow =
-        document.querySelector(
-            ".cursor-glow"
-        );
-
-
-    if (
-        cursorGlow &&
-        window.matchMedia(
-            "(pointer: fine)"
-        ).matches
-    ) {
-
-        let mouseX = 0;
-        let mouseY = 0;
-
-        let glowX = 0;
-        let glowY = 0;
-
-
-        document.addEventListener(
-            "mousemove",
-            event => {
-
-                mouseX =
-                    event.clientX;
-
-                mouseY =
-                    event.clientY;
-
-            },
-            {
-                passive: true
+            if (
+                window.innerWidth > 900
+            ) {
+                closeMenu();
             }
-        );
-
-
-        const animateCursor =
-            () => {
-
-                glowX +=
-                    (
-                        mouseX -
-                        glowX
-                    ) * 0.08;
-
-
-                glowY +=
-                    (
-                        mouseY -
-                        glowY
-                    ) * 0.08;
-
-
-                cursorGlow.style.left =
-                    `${glowX}px`;
-
-
-                cursorGlow.style.top =
-                    `${glowY}px`;
-
-
-                requestAnimationFrame(
-                    animateCursor
-                );
-
-            };
-
-
-        animateCursor();
-
-    }
-
-
-
-    /* =====================================================
-       13. SCROLL REVEAL
-    ===================================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal, " +
-            ".reveal-left, " +
-            ".reveal-right, " +
-            ".reveal-scale, " +
-            ".stagger-item"
-        );
-
-
-    if (
-        "IntersectionObserver"
-        in window
-    ) {
-
-        const revealObserver =
-            new IntersectionObserver(
-
-                (entries, observer) => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                !entry.isIntersecting
-                            ) {
-
-                                return;
-
-                            }
-
-
-                            entry.target.classList.add(
-                                "show"
-                            );
-
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-                    );
-
-                },
-
-                {
-                    threshold: 0.12,
-
-                    rootMargin:
-                        "0px 0px -50px 0px"
-                }
-
-            );
-
-
-        revealElements.forEach(
-            element => {
-
-                revealObserver.observe(
-                    element
-                );
-
-            }
-        );
-
-    } else {
-
-        revealElements.forEach(
-            element => {
-
-                element.classList.add(
-                    "show"
-                );
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       15. BUTTON HOVER EFFECT
-    ===================================================== */
-
-    const interactiveButtons =
-        document.querySelectorAll(
-            ".btn, .social-link, .filter-btn"
-        );
-
-
-    interactiveButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                "mousemove",
-                event => {
-
-                    const rect =
-                        button.getBoundingClientRect();
-
-
-                    const x =
-                        (
-                            (
-                                event.clientX -
-                                rect.left
-                            ) /
-                            rect.width
-                        ) * 100;
-
-
-                    const y =
-                        (
-                            (
-                                event.clientY -
-                                rect.top
-                            ) /
-                            rect.height
-                        ) * 100;
-
-
-                    button.style.setProperty(
-                        "--mouse-x",
-                        `${x}%`
-                    );
-
-
-                    button.style.setProperty(
-                        "--mouse-y",
-                        `${y}%`
-                    );
-
-                }
-            );
 
         }
     );
 
-
-
-    /* =====================================================
-       16. BACK TO TOP
-    ===================================================== */
-
-    const backTop =
-        document.querySelector(
-            ".back-top"
-        );
-
-
-    backTop?.addEventListener(
-        "click",
-        event => {
-
-            event.preventDefault();
-
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior:
-                    "smooth"
-
-            });
-
-        }
-    );
-
-
-
-    /* =====================================================
-       17. HEADER SCROLL EFFECT
-    ===================================================== */
-
-    const header =
-        document.querySelector(
-            ".site-header"
-        );
-
-
-    const updateHeader =
-        () => {
-
-            if (!header)
-                return;
-
-
-            header.classList.toggle(
-                "scrolled",
-                window.scrollY > 50
-            );
-
-        };
-
-
-    window.addEventListener(
-        "scroll",
-        updateHeader,
-        {
-            passive: true
-        }
-    );
-
-
-    updateHeader();
-
-
-
-    /* =====================================================
-       18. IMAGE SAFETY
-    ===================================================== */
-
-    document
-        .querySelectorAll("img")
-        .forEach(image => {
-
-            image.setAttribute(
-                "draggable",
-                "false"
-            );
-
-
-            image.addEventListener(
-                "error",
-                () => {
-
-                    image.classList.add(
-                        "image-error"
-                    );
-
-                }
-            );
-
-        });
-
-
-
-    /* =====================================================
-       19. CONSOLE
-    ===================================================== */
-
-    console.log(
-        "%c FINN PORTFOLIO ",
-        "background:#17113d;color:#a78bfa;" +
-        "font-size:16px;font-weight:bold;" +
-        "padding:8px 14px;"
-    );
-
-
-    console.log(
-        "Portfolio system initialized."
-    );
-    /* =====================================================
-   EDUCATION CERTIFICATE MODAL
-===================================================== */
-
-const educationCards =
-    document.querySelectorAll(
-        ".education-card[data-certificate]"
-    );
-
-const certificateModal =
-    document.getElementById(
-        "certificateModal"
-    );
-
-const certificateImage =
-    document.getElementById(
-        "certificateImage"
-    );
-
-const certificateTitle =
-    document.getElementById(
-        "certificateTitle"
-    );
-
-const certificateClose =
-    document.getElementById(
-        "certificateClose"
-    );
-
-const certificateOverlay =
-    document.querySelector(
-        ".certificate-overlay"
-    );
-
-
-function openCertificate(card) {
-
-    if (
-        !certificateModal ||
-        !certificateImage
-    ) {
-        return;
-    }
-
-    const image =
-        card.dataset.certificate;
-
-    const title =
-        card.dataset.certificateTitle ||
-        "Certificate";
-
-
-    certificateImage.src = image;
-
-    certificateImage.alt =
-        `${title} Certificate`;
-
-    if (certificateTitle) {
-        certificateTitle.textContent =
-            title;
-    }
-
-
-    certificateModal.classList.add(
-        "active"
-    );
-
-    certificateModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    document.body.style.overflow =
-        "hidden";
-}
-
-
-function closeCertificate() {
-
-    if (!certificateModal) {
-        return;
-    }
-
-    certificateModal.classList.remove(
-        "active"
-    );
-
-    certificateModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.style.overflow =
-        "";
-
-    setTimeout(() => {
-
-        if (certificateImage) {
-            certificateImage.src = "";
-        }
-
-    }, 300);
-}
-
-
-/* OPEN */
-
-educationCards.forEach(card => {
-
-    card.addEventListener(
-        "click",
-        () => {
-            openCertificate(card);
-        }
-    );
 
 });
-
-
-/* CLOSE BUTTON */
-
-if (certificateClose) {
-
-    certificateClose.addEventListener(
-        "click",
-        closeCertificate
-    );
-
-}
-
-
-/* CLICK OVERLAY */
-
-if (certificateOverlay) {
-
-    certificateOverlay.addEventListener(
-        "click",
-        closeCertificate
-    );
-
-}
-
-
-/* ESCAPE */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            certificateModal?.classList.contains(
-                "active"
-            )
-        ) {
-            closeCertificate();
-        }
-
-    }
-);
-});
-/* =====================================================
-   CONTACT FORM — MAILTO
-===================================================== */
-
-const contactForm = document.getElementById("contactForm");
-const contactSubmit = document.getElementById("contactSubmit");
-const formStatus = document.getElementById("formStatus");
-
-const nameInput = document.getElementById("name");
-const emailInput = document.getElementById("email");
-const subjectInput = document.getElementById("subject");
-const messageInput = document.getElementById("message");
-
-
-/* =====================================================
-   VALIDATION
-===================================================== */
-
-function validateContactInput(input) {
-
-    if (!input) return false;
-
-    const value = input.value.trim();
-
-    if (!value) {
-        input.classList.remove("valid");
-        input.classList.add("invalid");
-        return false;
-    }
-
-    input.classList.remove("invalid");
-    input.classList.add("valid");
-
-    return true;
-}
-
-
-function validateContactEmail(input) {
-
-    if (!input) return false;
-
-    const email = input.value.trim();
-
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!pattern.test(email)) {
-        input.classList.remove("valid");
-        input.classList.add("invalid");
-        return false;
-    }
-
-    input.classList.remove("invalid");
-    input.classList.add("valid");
-
-    return true;
-}
-
-
-/* =====================================================
-   LIVE VALIDATION
-===================================================== */
-
-[nameInput, subjectInput, messageInput].forEach(input => {
-
-    if (!input) return;
-
-    input.addEventListener("input", () => {
-        validateContactInput(input);
-    });
-
-});
-
-
-if (emailInput) {
-
-    emailInput.addEventListener("input", () => {
-        validateContactEmail(emailInput);
-    });
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function showContactStatus(message, type) {
-
-    if (!formStatus) return;
-
-    formStatus.textContent = message;
-
-    formStatus.className =
-        "form-status show " + type;
-}
-
-
-/* =====================================================
-   SEND EMAIL
-===================================================== */
-
-if (contactForm) {
-
-    contactForm.addEventListener("submit", event => {
-
-        event.preventDefault();
-
-
-        /* =============================================
-           VALIDATE
-        ============================================= */
-
-        const validName =
-            validateContactInput(nameInput);
-
-        const validEmail =
-            validateContactEmail(emailInput);
-
-        const validSubject =
-            validateContactInput(subjectInput);
-
-        const validMessage =
-            validateContactInput(messageInput);
-
-
-        if (
-            !validName ||
-            !validEmail ||
-            !validSubject ||
-            !validMessage
-        ) {
-
-            showContactStatus(
-                "Please complete all fields correctly.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        /* =============================================
-           GET DATA
-        ============================================= */
-
-        const name =
-            nameInput.value.trim();
-
-        const email =
-            emailInput.value.trim();
-
-        const subject =
-            subjectInput.value.trim();
-
-        const message =
-            messageInput.value.trim();
-
-
-        /* =============================================
-           YOUR EMAIL
-           
-           GANTI DENGAN EMAIL KAMU
-        ============================================= */
-
-        const destination =
-            "oktafinooo@gmail.com";
-
-
-        /* =============================================
-           CREATE EMAIL
-        ============================================= */
-
-        const mailSubject =
-            `[Portfolio] ${subject}`;
-
-        const mailBody =
-`Hi Finn,
-
-You received a new message from your portfolio.
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
---------------------------------
-Sent from Finn Portfolio`;
-
-
-        /* =============================================
-           CREATE MAILTO
-        ============================================= */
-
-        const mailto =
-            "mailto:" +
-            destination +
-            "?subject=" +
-            encodeURIComponent(mailSubject) +
-            "&body=" +
-            encodeURIComponent(mailBody);
-
-
-        /* =============================================
-           OPEN EMAIL CLIENT
-        ============================================= */
-
-        showContactStatus(
-            "Opening your email app...",
-            "success"
-        );
-
-
-        window.location.href = mailto;
-
-
-        /* =============================================
-           RESET
-        ============================================= */
-
-        setTimeout(() => {
-
-            contactForm.reset();
-
-            [nameInput, emailInput, subjectInput, messageInput]
-                .forEach(input => {
-
-                    if (!input) return;
-
-                    input.classList.remove(
-                        "valid",
-                        "invalid"
-                    );
-
-                });
-
-        }, 1000);
-
-    });
-
-}
